@@ -1,6 +1,7 @@
 import requests
 import math
 import json
+import sys
 from datetime import datetime as dt
 from pytz import timezone
 from termcolor import colored
@@ -49,12 +50,21 @@ def getBusTime(id):
     if num == 0:
         x = 'No information at this time.'    
         my_stops.append(x)
-    for stop in my_stops:
-        print(colored(stop, 'yellow'))
+    return(my_stops)
     if debug ==1:
         print(json.dumps(json_result, indent=4, sort_keys=True))
 
-getBusTime('490005432S2')
-print('\n')
-getBusTime('490015396S')
-print('\n')
+def main(argv):
+    for x in argv[1:]:
+        for stop in(getBusTime(x)):
+            print(colored(stop, 'yellow'))
+        print('\n')
+
+if __name__ == "__main__":
+    main(sys.argv)
+
+'''
+needs error checking and debugging
+need to handle formatting better and add other formats, i.e. emoji, rendered image, etc
+'''
+
