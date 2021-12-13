@@ -31,8 +31,8 @@ def getBusTime(id):
     json_result.sort(key = lambda x:x["expectedArrival"])
     stop_name=getStopName(id)
     my_stops = []
-    my_stops.append(stop_name.center(76))
-    my_stops.append(date_and_time.center(76))
+    my_stops.append(stop_name.center(56))
+    my_stops.append(date_and_time.center(56))
     num = 0
     for x in json_result:
           due_in=''
