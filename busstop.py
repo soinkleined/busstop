@@ -57,3 +57,4 @@ def getBusTime(id):
 getBusTime('490005432S2')
 print('\n')
 getBusTime('490015396S')
+print('\n')
