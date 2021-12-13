@@ -58,7 +58,7 @@ def main(argv):
     for x in argv[1:]:
         for stop in(getBusTime(x)):
             print(colored(stop, 'yellow'))
-        print('\n')
+        print()
 
 if __name__ == "__main__":
     main(sys.argv)
