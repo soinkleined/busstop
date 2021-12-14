@@ -11,6 +11,8 @@ Using the TFL API, find the corresponding StopPoint(s) and provide it/them as (a
 
 The script now also renders html output including dot matrix style webfonts.
 
+![busstop web](https://raw.githubusercontent.com/soinkleined/busstop/main/images/busstop_web.png)
+
 # To Do
 1. optimize css code
 2. add licenses and missing credits
