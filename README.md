@@ -1,6 +1,5 @@
-# Info
 ![busstop](flask_app/static/ico/android-chrome-512x512.png)
-
+# Info
 Busstop returns current arrival information for busses at the requested stop(s).  It prints the output in a style similar to that of the live bus update signs available at many bus stops throughout London.
 
 Using the TFL API, find the corresponding StopPoint(s) and provide it/them as (an) argument(s) to the script as follows:
