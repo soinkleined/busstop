@@ -1,5 +1,5 @@
 <p align="center">
-<img src"https://github.com/soinkleined/busstop/blob/develop/flask_app/static/ico/android-chrome-192x192.png?raw=true" alt="busstop">
+<img src"https://github.com/soinkleined/busstop/blob/develop/flask_app/static/ico/android-chrome-192x192.png?raw=true">
 </p>
 <h1 align="center" style="margin-top: 0px;">busstop</h1>
 <p align="center" >Realtime London bus stop information from TFL, on a raspberry pi, on your desktop.</p>
