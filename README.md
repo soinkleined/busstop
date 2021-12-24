@@ -1,5 +1,5 @@
 # Info
-busstop :busstop:
+![busstop](flask_app/static/ico/android-chrome-512x512.png)
 
 Busstop returns current arrival information for busses at the requested stop(s).  It prints the output in a style similar to that of the live bus update signs available at many bus stops throughout London.
 
