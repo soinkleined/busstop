@@ -1,6 +1,9 @@
 <p align="center">
-<img src"flask_app/static/ico/android-chrome-512x512.png" alt="busstop"/>
+<img src"https://github.com/soinkleined/busstop/blob/develop/flask_app/static/ico/android-chrome-192x192.png?raw=true" alt="busstop">
 </p>
+<h1 align="center" style="margin-top: 0px;">busstop</h1>
+<p align="center" >Realtime London bus stop information from TFL, on a raspberry pi, on your desktop.</p>
+
 # Info
 Busstop returns current arrival information for busses at the requested stop(s).  It prints the output in a style similar to that of the live bus update signs available at many bus stops throughout London.
 
