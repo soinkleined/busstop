@@ -1,0 +1,10 @@
+{% extends 'busstop.html' %}
+{% block content %}
+<br/>
+<br/>
+<br/>
+<span class="error"><img src="{{ url_for('static', filename='ico/mstile-150x150.png') }}"/></span></br>
+<span class="error">404</span></br>
+<span class="error">There's nothing here!</span></br>
+<span class="error"><a href="{{url_for('home')}}">Back</span></br>
+{% endblock %}

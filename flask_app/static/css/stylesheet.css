@@ -1,5 +1,3 @@
-@import url('grid_12-825-55-15.css');
-
 /*  
 	CSS Reset by Eric Meyer - Released under Public Domain
     http://meyerweb.com/eric/tools/css/reset/
@@ -29,32 +27,42 @@ table             {border-collapse: collapse;border-spacing: 0;}
 
 
 body {
-	color: yellow;
-	background-color: black;
+    color: yellow;
+    background-color: black;
     letter-spacing: 1px;
 
 }
 span{
     margin-bottom: 10px;
 }
+a {
+    color: yellow;
+}
 
 #container {
-	width: 680px;
-	margin: 0px auto;
+    width: 680px;
+    margin: 0px auto;
 }
 
 
-.stop_name {
+#stop_name {
     display: inline-block;
     text-align: center;
     width: 680px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#date_and_time {
+    display: inline-block;
+    text-align: center;
+    width: 680px;
+    height: 16px;
     margin-top: 20px;
 }
-.date_and_time {
+.error {
     display: inline-block;
     text-align: center;
     width: 680px;
-    margin-bottom: 20px;
 }
 .number {
     display: inline-block;

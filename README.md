@@ -33,3 +33,4 @@ https://github.com/petykowski/London-Underground-Dot-Matrix-Typeface
 
 https://www.fontsquirrel.com/tools/webfont-generator
 
+<div>Icons made by <a href="https://www.flaticon.com/authors/mavadee" title="mavadee">mavadee</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>

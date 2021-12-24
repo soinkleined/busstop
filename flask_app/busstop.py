@@ -18,7 +18,7 @@ https://api.tfl.gov.uk/swagger/ui/index.html#!/StopPoint/StopPoint_MetaCategorie
 https://stackoverflow.com/questions/335695/lists-in-configparser
 '''
 config = configparser.ConfigParser(converters={'list': lambda x: [i.strip() for i in x.split(',')]})
-config.read(os.path.join('properties', 'config.ini'))
+config.read(os.path.join('../properties', 'config.ini'))
 
 def getStopName(id):
     r = requests.get('https://api.tfl.gov.uk/StopPoint/' + id)
@@ -27,7 +27,6 @@ def getStopName(id):
     return(stop_name)
 
 def getBusTime(id):
-    my_stops = []
     busses=[]
     num = 0
     now = dt.now(timezone('Europe/London'))
@@ -38,8 +37,6 @@ def getBusTime(id):
     json_result.sort(key = lambda x:x["expectedArrival"])
     stop_name=getStopName(id)
     date_and_time = now.strftime(date_format  + " " + time_format) 
-    my_stops.append({"stopName":stop_name})
-    my_stops.append({"dateAndTime":date_and_time})
     for x in json_result:
           due_in=None
           num += 1
@@ -55,16 +52,14 @@ def getBusTime(id):
     if num == 0:
         bus = {"noInfo":"No information at this time."}    
         busses.append(bus)
-    my_stops.append({"busses":busses})
-    my_stops_json=json.dumps(my_stops, indent=4)
-    return(my_stops_json)
+    my_stops ={"stopName":stop_name ,"dateAndTime":date_and_time, "busses":busses}
+    return(my_stops)
 
-def main():
+def getStops():
+    all_stops=[]
     for x in config.getlist('busstop','stopid'):
-        print(getBusTime(x))
-
-if __name__ == "__main__":
-    main()
+        all_stops.append(getBusTime(x))
+    return(all_stops)
 
 '''
 needs error checking and debugging
