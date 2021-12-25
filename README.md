@@ -35,6 +35,17 @@ Please see the original ttf fonts here:
 
 https://github.com/petykowski/London-Underground-Dot-Matrix-Typeface
 
+and converted here:
+
 https://www.fontsquirrel.com/tools/webfont-generator
 
+Other useful links and acknowledgements:
+
+https://blog.miguelgrinberg.com/post/dynamically-update-your-flask-web-pages-using-turbo-flask
+
+https://www.shapeways.com/product/QQ225Z4NP/case-for-hyperpixel-4-0-square-non-touch-pi-zero
+
+https://jsonpathfinder.com/
+
 <div>Icons made by <a href="https://www.flaticon.com/authors/mavadee" title="mavadee">mavadee</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+
