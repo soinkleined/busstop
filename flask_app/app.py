@@ -4,6 +4,7 @@ https://github.com/realpython/flask-boilerplate
 import json
 from flask import Flask, render_template, jsonify
 import logging
+import time
 from logging import Formatter, FileHandler
 from busstop import getStops
 
@@ -12,8 +13,10 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    all_stops=getStops()
-    return render_template("busstop.html", all_stops=all_stops)
+    while True:
+        time.sleep(10)
+        all_stops=getStops()
+        return render_template("busstop.html", all_stops=all_stops)
 
 @app.errorhandler(500)
 def internal_error(error):

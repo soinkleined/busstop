@@ -52,7 +52,7 @@ a {
     margin-top: 10px;
     margin-bottom: 10px;
 }
-#date_and_time {
+#date_and_time, #no_info {
     display: inline-block;
     text-align: center;
     width: 680px;
