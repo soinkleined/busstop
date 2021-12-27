@@ -4,28 +4,46 @@ https://github.com/realpython/flask-boilerplate
 import json
 from flask import Flask, render_template, jsonify
 import logging
-import time
 from logging import Formatter, FileHandler
+import threading
+import time
+from turbo_flask import Turbo
 from busstop import getStops
+import random
 
 
 app = Flask(__name__)
+turbo = Turbo(app)
+
+#@app.context_processor
+def get_all_stops():
+    all_stops=getStops()
+    return(all_stops) #<- PROBLEM
 
 @app.route("/")
-def home():
-    while True:
-        time.sleep(10)
-        all_stops=getStops()
-        return render_template("busstop.html", all_stops=all_stops)
+def index():
+    all_stops=getStops()
+    return render_template("index.html", all_stops=all_stops)
+    #return render_template("index.html")
 
-@app.errorhandler(500)
-def internal_error(error):
-    return render_template('errors/500.html'), 500
+#@app.before_first_request
+def before_first_request():
+    threading.Thread(target=update_stops).start()
+
+def update_stops():
+    with app.app_context():
+        while True:
+            time.sleep(10)
+            turbo.push(turbo.replace(render_template('busstop.html'), 'all_stops'))
+
+#@app.errorhandler(500)
+#def internal_error(error):
+#    return render_template('errors/500.html'), 500
 
 
-@app.errorhandler(404)
-def not_found_error(error):
-    return render_template('errors/404.html'), 404
+#@app.errorhandler(404)
+#def not_found_error(error):
+#    return render_template('errors/404.html'), 404
 
 if not app.debug:
     file_handler = FileHandler('error.log')
