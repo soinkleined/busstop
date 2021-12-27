@@ -20,7 +20,12 @@ Point your browser to http://127.0.0.1:5000/
 
 ![busstop web](https://raw.githubusercontent.com/soinkleined/busstop/develop/readme_images/busstop_web.png)
 
-Hardware for pi kiosk (full part list to come):
+#Hardware list
+Here are some links to the hardware I used:
+- pi zero wh https://shop.pimoroni.com/products/raspberry-pi-zero-w?variant=39458414297171
+- screen https://shop.pimoroni.com/products/hyperpixel-4-square?variant=30138251477075
+- case https://shop.pimoroni.com/products/hyperpixel-4-square?variant=30138251477075
+- on/off usb switch https://thepihut.com/products/micro-usb-cable-with-on-off-switch
 
 ![hardware](https://raw.githubusercontent.com/soinkleined/busstop/develop/readme_images/hardware.jpeg)
 
@@ -50,7 +55,6 @@ Other useful links and acknowledgements:
 
 https://blog.miguelgrinberg.com/post/dynamically-update-your-flask-web-pages-using-turbo-flask
 
-https://www.shapeways.com/product/QQ225Z4NP/case-for-hyperpixel-4-0-square-non-touch-pi-zero
 
 https://jsonpathfinder.com/
 
