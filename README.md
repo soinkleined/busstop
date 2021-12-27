@@ -13,8 +13,8 @@ Using the TFL API, find the corresponding StopPoint(s) and add it/them to the pr
 
 After cloning the repo and all requisite packages are installed, do the following:
 
-`% cd flask_app`
-`% flask run`
+    % cd flask_app
+    % flask run
 
 Point your browser to http://127.0.0.1:5000/
 
