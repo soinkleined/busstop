@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font_stylesheet.css') }}" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet.css') }}" type="text/css" charset="utf-8" />
+    <style type="text/css">
+        body{
+            font-family: "london_undergroundregular";
+            }
+     </style>
+<!-- /styles -->
+
+<!-- favicons -->
+<!-- https://realfavicongenerator.net/ -->
+<link rel="shortcut icon" href="{{ url_for('static', filename='ico/favicon.ico') }}">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='ico/apple-touch-icon.png') }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='ico/favicon-32x32.png') }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='ico/favicon-16x16.png') }}">
+<link rel="manifest" href="{{ url_for('static', filename='ico/site.webmanifest') }}">
+<link rel="mask-icon" href="{{ url_for('static', filename='ico/safari-pinned-tab.svg') }}" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#ffffff">
+<!-- /favicons -->
+
+<!-- scripts -->
+     <script src="{{ url_for('static', filename='js/date_and_time.js') }}"></script>
+     {{ turbo() }}
+<!-- /scripts -->
+
+    <title>busstop</title>
+</head>
+<body onload="displayDateAndTime()">
+<body >
+        <div id="container">
+            <span id="date_and_time"></span></br>
+        {% block content %}
+        {% include "busstop.html" %}
+        {% endblock %}
+    </div> 
+</body>
