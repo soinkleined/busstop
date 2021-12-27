@@ -22,7 +22,6 @@ def get_all_stops():
 @app.route("/")
 def index():
     all_stops=getStops()
-    #return render_template("index.html", all_stops=all_stops)
     return render_template("index.html")
 
 @app.before_first_request
