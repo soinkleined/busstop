@@ -7,25 +7,28 @@
 # Info
 Busstop returns current arrival information for busses at the requested stop(s).  It prints the output in a style similar to that of the live bus update signs available at many bus stops throughout London.
 
-Using the TFL API, find the corresponding StopPoint(s) and provide it/them as (an) argument(s) to the script as follows:
+The script runs as a flask appliction and uses turbo flask web sockets to update it dynamically in 30 second intervals. It is intended to run via a raspberry pi whilst using chrome in kiosk mode.
 
-`% python busstop.py  490015396S`
+Using the TFL API, find the corresponding StopPoint(s) and add it/them to the properties/config.ini file.  You can also configure the number of bussess to display per stop.
 
-![busstop](https://raw.githubusercontent.com/soinkleined/busstop/develop/readme_images/busstop.png)
+After cloning the repo and all requisite packages are installed, do the following:
 
-The script now also renders html output including dot matrix style webfonts.
+`% cd flask_app`
+`% flask run`
+
+Point your browser to http://127.0.0.1:5000/
 
 ![busstop web](https://raw.githubusercontent.com/soinkleined/busstop/develop/readme_images/busstop_web.png)
 
 # To Do
-1. optimize css code
-2. add licenses and missing credits
-3. setup on rpi with chromium kiosk mode
-4. add better handling of formatting arguments
-5. handle errors for connectivity, api availability, etc.
+1. add licenses and missing credits
+2. setup on rpi with chromium kiosk mode
+3. handle errors for connectivity, api availability, etc.
+4. use pythong virtual environments and setup requirements.txt
+5. look at creating a GCP service
 
 ## Acknowledgements
-Balena.io is a very interesting platform for IoT fleet management.  I saw their blog post about creating a live train time sign under your monitor and was inspired to do something similar for busses. There are a lot of links to other resources from the post and I hope to also do this from a pi zero with a custom case at some point.
+Balena.io is a very interesting platform for IoT fleet management.  I saw their blog post about creating a live train time sign under your monitor and was inspired to do something similar for busses. There are a lot of links to other resources from the post as well as many other project ideas. 
 
 https://www.balena.io/blog/build-a-raspberry-pi-powered-train-station-oled-sign-for-your-desk/
 
@@ -46,6 +49,8 @@ https://blog.miguelgrinberg.com/post/dynamically-update-your-flask-web-pages-usi
 https://www.shapeways.com/product/QQ225Z4NP/case-for-hyperpixel-4-0-square-non-touch-pi-zero
 
 https://jsonpathfinder.com/
+
+https://github.com/realpython/flask-boilerplate
 
 <div>Icons made by <a href="https://www.flaticon.com/authors/mavadee" title="mavadee">mavadee</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
