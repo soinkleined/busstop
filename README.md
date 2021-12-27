@@ -20,6 +20,10 @@ Point your browser to http://127.0.0.1:5000/
 
 ![busstop web](https://raw.githubusercontent.com/soinkleined/busstop/develop/readme_images/busstop_web.png)
 
+Hardware for pi kiosk (full part list to come):
+
+![hardware](https://raw.githubusercontent.com/soinkleined/busstop/develop/readme_images/hardware.jpeg)
+
 # To Do
 1. add licenses and missing credits
 2. setup on rpi with chromium kiosk mode
