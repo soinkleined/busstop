@@ -20,6 +20,8 @@ Point your browser to http://127.0.0.1:5000/
 
 ![busstop web](https://raw.githubusercontent.com/soinkleined/busstop/develop/readme_images/busstop_web.png)
 
+![busstop example](https://raw.githubusercontent.com/soinkleined/busstop/develop/readme_images/busstop_example.png)
+
 # Hardware list
 Links to the hardware:
 - pi zero wh https://shop.pimoroni.com/products/raspberry-pi-zero-w?variant=39458414297171
