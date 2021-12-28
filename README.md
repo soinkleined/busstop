@@ -35,7 +35,7 @@ Links to the hardware:
 1. add any missing credits
 2. setup on rpi with chromium kiosk mode
 3. handle errors for connectivity, api availability, etc.
-4. use pythong virtual environments and setup requirements.txt
+4. use python virtual environments and setup requirements.txt
 5. look at creating a GCP service
 
 ## Acknowledgements
