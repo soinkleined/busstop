@@ -26,7 +26,7 @@ def getStopName(id):
     stop_name=json_result['commonName']
     return(stop_name)
 
-def getBusTime(id,num_stops):
+def getBusTime(id,num_busses):
     busses=[]
     num = 0
     now = dt.now(timezone('Europe/London'))
@@ -49,7 +49,7 @@ def getBusTime(id,num_stops):
               due_in = str(away_min) + 'min'
           bus = {"number":str(num),"lineName":str(x['lineName']),"destinationName":str(x['destinationName']),"arrivalTime":arrival_time,"dueIn":due_in}
           busses.append(bus)
-          if num == num_stops:
+          if num == num_busses:
                   break
     if num == 0:
         bus = {"noInfo":"No information at this time."}    
@@ -61,8 +61,8 @@ def getStops():
     all_stops=[]
     num=0
     for id in config.getlist('busstop','stopid'):
-        num_stops=int(config.getlist('busstop','num_stops')[num])
-        all_stops.append(getBusTime(id,num_stops))
+        num_busses=int(config.getlist('busstop','num_busses')[num])
+        all_stops.append(getBusTime(id,num_busses))
         num+=1
     return(all_stops)
 

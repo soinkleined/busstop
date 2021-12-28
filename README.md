@@ -9,14 +9,21 @@ Busstop returns current arrival information for busses at the requested stop(s).
 
 The script runs as a flask appliction and uses turbo flask web sockets to update it dynamically in 30 second intervals. It is intended to run via a raspberry pi whilst using chrome in kiosk mode.
 
-Using the TFL API, find the corresponding StopPoint(s) and add it/them to the properties/config.ini file.  You can also configure the number of bussess to display per stop.
-
-https://tfl.gov.uk/travel-information/stations-stops-and-piers/
-
 Clone the repo:
 
     git clone -b develop https://github.com/soinkleined/busstop.git
     cd busstop
+
+Using the TFL API, find the corresponding StopPoint(s) and add it/them to the properties/config.ini file.  You can also configure the number of bussess to display per stop.
+
+https://tfl.gov.uk/travel-information/stations-stops-and-piers/
+
+Here is an example configuration.  Use comma-separated stopids and values for the number of busses you'd like to display for each stop.  "0" will display all available busses.  Keep in mind your screen size and adjust appropriately. 
+
+    [busstop]
+    #Newington Green, Clissold Crescent
+    stopid = 490005432S2,490015396S
+    num_busses=0,0
 
 TBD: 
 
