@@ -32,7 +32,7 @@ Links to the hardware:
 ![hardware](https://raw.githubusercontent.com/soinkleined/busstop/develop/readme_images/hardware.jpeg)
 
 # To Do
-1. add licenses and missing credits
+1. add any missing credits
 2. setup on rpi with chromium kiosk mode
 3. handle errors for connectivity, api availability, etc.
 4. use pythong virtual environments and setup requirements.txt
@@ -64,3 +64,4 @@ https://github.com/realpython/flask-boilerplate
 
 <div>Icons made by <a href="https://www.flaticon.com/authors/mavadee" title="mavadee">mavadee</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
+This project is licensed under the terms of the MIT license.
