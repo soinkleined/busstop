@@ -64,4 +64,5 @@ https://github.com/realpython/flask-boilerplate
 
 <div>Icons made by <a href="https://www.flaticon.com/authors/mavadee" title="mavadee">mavadee</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
+# License
 This project is licensed under the terms of the MIT license.
