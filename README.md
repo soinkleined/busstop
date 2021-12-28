@@ -15,17 +15,18 @@ https://tfl.gov.uk/travel-information/stations-stops-and-piers/
 
 Clone the repo:
 
-    % git clone -b develop https://github.com/soinkleined/busstop.git
-    % cd busstop
+    git clone -b develop https://github.com/soinkleined/busstop.git
+    cd busstop
 
-TBD `virtualenv env`
-TBD `source env/bin/activate`
-TBD `pip3 install -r requirements.txt`
+TBD: 
+    virtualenv env
+    source env/bin/activate
+    pip3 install -r requirements.txt
 
 After cloning the repo and all requisite packages are installed, do the following:
 
-    % cd flask_app
-    % flask run
+    cd flask_app
+    flask run
 
 Point your browser to http://127.0.0.1:5000/
 
