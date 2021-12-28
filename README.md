@@ -11,6 +11,17 @@ The script runs as a flask appliction and uses turbo flask web sockets to update
 
 Using the TFL API, find the corresponding StopPoint(s) and add it/them to the properties/config.ini file.  You can also configure the number of bussess to display per stop.
 
+https://tfl.gov.uk/travel-information/stations-stops-and-piers/
+
+Clone the repo:
+
+    % git clone -b develop https://github.com/soinkleined/busstop.git
+    % cd busstop
+
+TBD `virtualenv env`
+TBD `source env/bin/activate`
+TBD `pip3 install -r requirements.txt`
+
 After cloning the repo and all requisite packages are installed, do the following:
 
     % cd flask_app
