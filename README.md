@@ -70,7 +70,6 @@ Other useful links and acknowledgements:
 
 https://blog.miguelgrinberg.com/post/dynamically-update-your-flask-web-pages-using-turbo-flask
 
-
 https://jsonpathfinder.com/
 
 https://github.com/realpython/flask-boilerplate
