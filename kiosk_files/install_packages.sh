@@ -1,5 +1,6 @@
-declare -a PKG_LIST=("xserver-xorg" "x11-xserver-utils" "xinit" "openbox" "chromium-browser" "unclutter")
-
+declare -a PKG_LIST=("git" "xserver-xorg" "x11-xserver-utils" "xinit" "openbox" "chromium-browser" "unclutter")
+sudo apt update
+sudo apt full-upgrade
 for PKG in "${PKG_LIST[@]}"; do
     PKG_INFO=$(dpkg -s  "${PKG}" 2>/dev/null)
     PKG_NAME=$(echo "$PKG_INFO" | grep "^Package:" | cut -f2- -d:)
