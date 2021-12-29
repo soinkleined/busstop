@@ -27,13 +27,13 @@ Here is an example configuration.  Use comma-separated stopids and values for th
 
 TBD: 
 
-    virtualenv env
-    source env/bin/activate
-    pip3 install -r requirements.txt
+    cd flask_app
+    virtualenv venv
+    source venv/bin/activate
+    pip3 install -r ../requirements.txt
 
 After cloning the repo and all requisite packages are installed, do the following:
 
-    cd flask_app
     flask run
 
 Point your browser to http://127.0.0.1:5000/
