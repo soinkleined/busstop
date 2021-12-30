@@ -23,7 +23,7 @@ Here is an example configuration.  Use comma-separated stopids and values for th
     [busstop]
     #Newington Green, Clissold Crescent
     stopid = 490005432S2,490015396S
-    num_busses=0,0
+    num_busses=10,10
 
 TBD: 
 
