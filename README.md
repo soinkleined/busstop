@@ -53,10 +53,10 @@ Links to the hardware:
 
 # To Do
 1. add any missing credits
-2. setup on rpi with chromium kiosk mode
+2. finish kiosk build automation
 3. handle errors for connectivity, api availability, etc.
-4. use python virtual environments and setup requirements.txt
-5. look at creating a GCP service
+4. look for confg optimisations for RPI zero, i.e. zram, gpu memory config, etc
+5. do i need nginx in front of gunicorn on an rpi zero?
 
 ## Acknowledgements
 Balena.io is a very interesting platform for IoT fleet management.  I saw their blog post about creating a live train time sign under your monitor and was inspired to do something similar for busses. There are a lot of links to other resources from the post as well as many other project ideas. 
