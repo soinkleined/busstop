@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://raw.githubusercontent.com/soinkleined/busstop/develop/flask_app/static/ico/android-chrome-192x192.png" alt="busstop">
+<img src="https://raw.githubusercontent.com/soinkleined/busstop/main/flask_app/static/ico/android-chrome-192x192.png" alt="busstop">
 </p>
 <h1 align="center" style="margin-top: 0px;">busstop</h1>
 <p align="center" >Realtime London bus stop information from TFL, on a raspberry pi, on your desktop.</p>
@@ -11,7 +11,7 @@ The script runs as a flask appliction and uses turbo flask web sockets to update
 
 Clone the repo:
 
-    git clone -b develop https://github.com/soinkleined/busstop.git
+    git clone https://github.com/soinkleined/busstop.git
     cd busstop
 
 Using the TFL API, find the corresponding StopPoint(s) and add it/them to the properties/config.ini file.  You can also configure the number of bussess to display per stop.
@@ -38,9 +38,9 @@ After cloning the repo and all requisite packages are installed, do the followin
 
 Point your browser to http://127.0.0.1:5000/
 
-![busstop web](https://raw.githubusercontent.com/soinkleined/busstop/develop/readme_images/busstop_web.png)
+![busstop web](https://raw.githubusercontent.com/soinkleined/busstop/main/readme_images/busstop_web.png)
 
-![busstop example](https://raw.githubusercontent.com/soinkleined/busstop/develop/readme_images/busstop_example.jpeg)
+![busstop example](https://raw.githubusercontent.com/soinkleined/busstop/main/readme_images/busstop_example.jpeg)
 
 # Hardware list
 Links to the hardware:
@@ -49,7 +49,7 @@ Links to the hardware:
 - case https://shop.pimoroni.com/products/hyperpixel-4-square?variant=30138251477075
 - on/off usb switch https://thepihut.com/products/micro-usb-cable-with-on-off-switch
 
-![hardware](https://raw.githubusercontent.com/soinkleined/busstop/develop/readme_images/hardware.jpeg)
+![hardware](https://raw.githubusercontent.com/soinkleined/busstop/main/readme_images/hardware.jpeg)
 
 # To Do
 1. add any missing credits
@@ -83,5 +83,5 @@ https://github.com/realpython/flask-boilerplate
 
 <div>Icons made by <a href="https://www.flaticon.com/authors/mavadee" title="mavadee">mavadee</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
-# License [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://raw.githubusercontent.com/soinkleined/busstop/develop/LICENSE.md)
+# License [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://raw.githubusercontent.com/soinkleined/busstop/main/LICENSE.md)
 This project is licensed under the terms of the MIT license.
