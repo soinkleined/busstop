@@ -1,0 +1,12 @@
+[Unit]
+Description=busstop
+After=network.target
+
+[Service]
+User=pi
+WorkingDirectory=/home/pi/busstop/flask_app
+ExecStart=/home/pi/busstop/flask_app/venv/bin/gunicorn --timeout 1000 --bind localhost:8000 --workers 3 --threads 12 app:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
