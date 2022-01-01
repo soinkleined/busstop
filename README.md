@@ -7,7 +7,7 @@
 # Info
 Busstop returns current arrival information for busses at the requested stop(s).  It prints the output in a style similar to that of the live bus update signs available at many bus stops throughout London.
 
-The script runs as a flask appliction and uses turbo flask web sockets to update it dynamically in 30 second intervals. It is intended to run via a raspberry pi whilst using chrome in kiosk mode.
+The script runs as a flask appliction and uses turbo flask web sockets to update it dynamically in 15 second intervals. It is intended to run via a raspberry pi whilst using chrome in kiosk mode.
 
 Clone the repo:
 

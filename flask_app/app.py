@@ -31,7 +31,7 @@ def before_first_request():
 def update_stops():
     with app.app_context():
         while True:
-            time.sleep(30)
+            time.sleep(15)
             turbo.push(turbo.replace(render_template('busstop.html'), 'all_stops'))
 
 @app.errorhandler(500)
