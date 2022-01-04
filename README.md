@@ -16,7 +16,9 @@ Clone the repo:
 
 Using the TFL API, find the corresponding StopPoint(s) and add it/them to the properties/config.ini file.  You can also configure the number of bussess to display per stop.
 
-https://tfl.gov.uk/travel-information/stations-stops-and-piers/
+The column where the stopid is located is "Naptan_Atco" and you might want validate it against the "Stop_Name":
+
+http://tfl.gov.uk/tfl/syndication/feeds/bus-stops.csv
 
 Here is an example configuration.  Use comma-separated stopids and values for the number of busses you'd like to display for each stop.  "0" will display all available busses.  Keep in mind your screen size and adjust appropriately. 
 
@@ -25,7 +27,7 @@ Here is an example configuration.  Use comma-separated stopids and values for th
     stopid = 490005432S2,490015396S
     num_busses=10,10
 
-TBD: 
+Install a pythin viertual environment and all requisite packages: 
 
     cd flask_app
     virtualenv venv
@@ -38,7 +40,13 @@ After cloning the repo and all requisite packages are installed, do the followin
 
 Point your browser to http://127.0.0.1:5000/
 
+<<<<<<< HEAD
 ![busstop web](https://raw.githubusercontent.com/soinkleined/busstop/main/readme_images/busstop_web.png)
+=======
+For running the appliation as a service for kiosk mode, there is a work in progress in the kiosk_files folder that will have all the requisite configuration information for guncorn, nginx, chrome, etc.
+
+![busstop web](https://raw.githubusercontent.com/soinkleined/busstop/develop/readme_images/busstop_web.png)
+>>>>>>> develop
 
 ![busstop example](https://raw.githubusercontent.com/soinkleined/busstop/main/readme_images/busstop_example.jpeg)
 
