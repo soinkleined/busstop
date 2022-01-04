@@ -27,7 +27,7 @@ Here is an example configuration.  Use comma-separated stopids and values for th
     stopid = 490005432S2,490015396S
     num_busses=10,10
 
-Install a pythin viertual environment and all requisite packages: 
+Install a pythin virtual environment and all requisite packages: 
 
     cd flask_app
     virtualenv venv
