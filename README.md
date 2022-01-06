@@ -42,7 +42,7 @@ Point your browser to http://127.0.0.1:5000/
 
 ![busstop web](https://raw.githubusercontent.com/soinkleined/busstop/main/readme_images/busstop_web.png)
 
-For running the appliation as a service for kiosk mode, there is a work in progress in the kiosk_files folder that will have all the requisite configuration information for guncorn, nginx, chrome, etc.
+For running the appliation as a service for kiosk mode, there is a work in progress in the kiosk_files folder that will have all the requisite configuration information for gunicorn, nginx, chrome, etc.
 
 ![busstop example](https://raw.githubusercontent.com/soinkleined/busstop/main/readme_images/busstop_example.jpeg)
 
