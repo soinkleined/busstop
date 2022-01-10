@@ -19,9 +19,20 @@ https://stackoverflow.com/questions/335695/lists-in-configparser
 '''
 config = configparser.ConfigParser(converters={'list': lambda x: [i.strip() for i in x.split(',')]})
 config.read(os.path.join('../properties', 'config.ini'))
+url = 'https://api.tfl.gov.uk/StopPoint/'
 
 def getStopName(id):
-    r = requests.get('https://api.tfl.gov.uk/StopPoint/' + id)
+    try:
+        r = requests.get(url + id,timeout=10)
+        r.raise_for_status()
+    except requests.exceptions.HTTPError as errh:
+        print ("Http Error:",errh)
+    except requests.exceptions.ConnectionError as errc:
+        print ("Error Connecting:",errc)
+    except requests.exceptions.Timeout as errt:
+        print ("Timeout Error:",errt)
+    except requests.exceptions.RequestException as err:
+        print ("Exception:",err)
     json_result = r.json()
     stop_name=json_result['commonName']
     return(stop_name)
@@ -66,6 +77,9 @@ def getStops():
         num+=1
     return(all_stops)
 
+
+if __name__ == "__main__":
+   print(json.dumps(getStops(), indent=4))
 '''
 needs error checking and debugging
 need to handle formatting better and add other formats, i.e. emoji, rendered image, etc
