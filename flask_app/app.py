@@ -10,6 +10,7 @@ import time
 from turbo_flask import Turbo
 from busstop import getStops
 
+update_interval=15
 
 app = Flask(__name__)
 turbo = Turbo(app)
@@ -31,7 +32,7 @@ def before_first_request():
 def update_stops():
     with app.app_context():
         while True:
-            time.sleep(15)
+            time.sleep(update_interval)
             turbo.push(turbo.replace(render_template('busstop.html'), 'all_stops'))
 
 @app.errorhandler(500)
