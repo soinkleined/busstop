@@ -84,6 +84,8 @@ https://jsonpathfinder.com/
 
 https://github.com/realpython/flask-boilerplate
 
+https://stackoverflow.com/questions/335695/lists-in-configparser
+
 <div>Icons made by <a href="https://www.flaticon.com/authors/mavadee" title="mavadee">mavadee</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
 # License [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://raw.githubusercontent.com/soinkleined/busstop/develop/LICENSE.md)

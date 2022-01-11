@@ -7,23 +7,13 @@ from pytz import timezone
 import configparser
 import os
 
-'''
-curl "https://api.tfl.gov.uk/StopPoint/490005432S2/Arrivals" | jq .
-https://api.tfl.gov.uk/swagger/ui/index.html#!/StopPoint/StopPoint_MetaCategories
-490015396S -> Newington Green
-490005432S2 -> Clissold Crescent
-'''
-
-'''
-https://stackoverflow.com/questions/335695/lists-in-configparser
-'''
 config = configparser.ConfigParser(converters={'list': lambda x: [i.strip() for i in x.split(',')]})
 config.read(os.path.join('../properties', 'config.ini'))
 url = 'https://api.tfl.gov.uk/StopPoint/'
 
-def getStopName(id):
+def getTFL(id,timeout):
     try:
-        r = requests.get(url + id,timeout=10)
+        r = requests.get(url + id,timeout=timeout)
         r.raise_for_status()
     except requests.exceptions.HTTPError as errh:
         print ("Http Error:",errh)
@@ -33,7 +23,10 @@ def getStopName(id):
         print ("Timeout Error:",errt)
     except requests.exceptions.RequestException as err:
         print ("Exception:",err)
-    json_result = r.json()
+    return(r.json())
+
+def getStopName(id):
+    json_result = getTFL(id,10)
     stop_name=json_result['commonName']
     return(stop_name)
 
@@ -43,8 +36,7 @@ def getBusTime(id,num_busses):
     now = dt.now(timezone('Europe/London'))
     date_format = "%Y-%m-%d"
     time_format  = "%H:%M:%S"
-    r = requests.get('https://api.tfl.gov.uk/StopPoint/' + id + '/Arrivals')
-    json_result = r.json()
+    json_result = getTFL(id + '/Arrivals',10)
     json_result.sort(key = lambda x:x["expectedArrival"])
     stop_name=getStopName(id)
     date_and_time = now.strftime(date_format  + " " + time_format) 
@@ -80,7 +72,3 @@ def getStops():
 
 if __name__ == "__main__":
    print(json.dumps(getStops(), indent=4))
-'''
-needs error checking and debugging
-need to handle formatting better and add other formats, i.e. emoji, rendered image, etc
-'''
