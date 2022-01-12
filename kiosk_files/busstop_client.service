@@ -1,0 +1,21 @@
+[Unit]
+Description=busstop client
+Requires=graphical.target
+After=graphical.target
+
+[Service]
+Environment=DISPLAY=:0.0
+Environment=XAUTHORITY=/home/pi/.Xauthority
+ExecStart=/usr/bin/chromium-browser "http://localhost" \
+    --kiosk \
+    --noerrdialogs \
+    --disable-session-crashed-bubble \
+    --disable-restore-session-state \
+    --disable-infobars \
+    --check-for-update-interval=31536000
+Restart=always
+User=pi
+Group=pi
+
+[Install]
+WantedBy=graphical.target
