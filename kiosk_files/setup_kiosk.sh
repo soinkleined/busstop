@@ -8,6 +8,13 @@ AUTOSTART="/etc/xdg/lxsession/LXDE-pi/autostart"
 SPLASH="/usr/share/plymouth/themes/pix/splash.png"
 
 ##############################
+# update OS and install software
+##############################
+sudo apt update
+sudo apt full-upgrade
+sudo apt install -y git xserver-xorg x11-xserver-utils xinit openbox chromium-browser unclutter nginx
+
+##############################
 # Set browser kiosk startup
 ##############################
 mv  "${AUTOSTART}" "${AUTOSTART}.${TIMESTAMP}"
@@ -23,7 +30,7 @@ echo "# Configured by busstop on ${TIMESTAMP}
 # Set splash screen
 ##############################
 mv "${SPLASH}" "${SPLASH}.${TIMESTAMP}"
-cp ./splash.png "${SPLASH}"
+cp images/splash.png "${SPLASH}"
 
 ##############################
 # Set hostname
@@ -32,3 +39,16 @@ cp /etc/hostname "/etc/hostname.${TIMESTAMP}"
 cp /etc/hosts "/etc/hosts.${TIMESTAMP}"
 echo $NEW_HOSTNAME > /etc/hostname
 sed -i "s/127.0.1.1.*$CURRENT_HOSTNAME/127.0.1.1\t$NEW_HOSTNAME/g" /etc/hosts
+
+##############################
+# Configure busstop_server
+##############################
+
+##############################
+# Configure busstop_client
+##############################
+
+##############################
+# Configure nginx
+##############################
+
