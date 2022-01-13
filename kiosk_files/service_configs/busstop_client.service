@@ -4,6 +4,8 @@ Requires=graphical.target
 After=graphical.target
 
 [Service]
+User=pi
+Group=pi
 Environment=DISPLAY=:0.0
 Environment=XAUTHORITY=/home/pi/.Xauthority
 ExecStart=/usr/bin/chromium-browser "http://localhost" \
@@ -14,8 +16,6 @@ ExecStart=/usr/bin/chromium-browser "http://localhost" \
     --disable-infobars \
     --check-for-update-interval=31536000
 Restart=always
-User=pi
-Group=pi
 
 [Install]
 WantedBy=graphical.target

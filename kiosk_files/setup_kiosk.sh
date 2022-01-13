@@ -1,3 +1,4 @@
+#!/bin/env bash
 ##############################
 # Vars
 ##############################
@@ -6,6 +7,8 @@ CURRENT_HOSTNAME=`cat /etc/hostname | tr -d " \t\n\r"`
 TIMESTAMP=$(date +%Y%m%d%H%M%S)
 AUTOSTART="/etc/xdg/lxsession/LXDE-pi/autostart"
 SPLASH="/usr/share/plymouth/themes/pix/splash.png"
+DIR=$(dirname "${0}")
+echo $DIR && exit
 
 ##############################
 # update OS and install software
@@ -30,7 +33,7 @@ echo "# Configured by busstop on ${TIMESTAMP}
 # Set splash screen
 ##############################
 mv "${SPLASH}" "${SPLASH}.${TIMESTAMP}"
-cp images/splash.png "${SPLASH}"
+cp "${DIR}/images/splash.png" "${SPLASH}"
 
 ##############################
 # Set hostname

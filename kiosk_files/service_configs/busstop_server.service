@@ -4,6 +4,7 @@ After=network.target
 
 [Service]
 User=pi
+Group=pi
 WorkingDirectory=/home/pi/busstop
 ExecStart=/home/pi/busstop/venv/bin/gunicorn -b localhost:8000 -w 2 busstop:app
 Restart=always
