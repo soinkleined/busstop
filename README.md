@@ -29,7 +29,7 @@ http://tfl.gov.uk/tfl/syndication/feeds/bus-stops.csv
 Here is an example configuration.  Use comma-separated stopids and values for the number of busses you'd like to display for each stop.  "0" will display all available busses.  Keep in mind your screen size and adjust appropriately. 
 
     [busstop]
-    #Newington Green, Clissold Crescent
+    #Clissold Crescent, Newington Green
     stopid = 490005432S2,490015396S
     num_busses=10,10
 
