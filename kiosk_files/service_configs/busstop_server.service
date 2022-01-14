@@ -6,7 +6,7 @@ After=network.target
 User=pi
 Group=pi
 WorkingDirectory=/home/pi/busstop/flask_app
-ExecStart=/home/pi/busstop/flask_app/venv/bin/gunicorn -b localhost:8000 -w 2 busstop:app
+ExecStart=/home/pi/busstop/flask_app/venv/bin/gunicorn -b localhost:8000 -w 2 app:app
 Restart=always
 
 [Install]
