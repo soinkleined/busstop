@@ -15,7 +15,8 @@ echo $DIR && exit
 ##############################
 sudo apt update
 sudo apt full-upgrade
-sudo apt install -y git xserver-xorg x11-xserver-utils xinit openbox chromium-browser unclutter nginx
+sudo apt install -y git xserver-xorg x11-xserver-utils xinit openbox chromium-browser unclutter nginx realvnc-vnc-server
+sudo systemctl enable vncserver-x11-serviced
 
 ##############################
 # Set browser kiosk startup
@@ -47,11 +48,15 @@ sed -i "s/127.0.1.1.*$CURRENT_HOSTNAME/127.0.1.1\t$NEW_HOSTNAME/g" /etc/hosts
 # Configure busstop_server
 ##############################
 
+sudo systemctl daemon-reload
+sudo systemctl enable busstop_server
 ##############################
 # Configure busstop_client
 ##############################
 
+sudo systemctl enable busstop_client
 ##############################
 # Configure nginx
 ##############################
 
+sudo systemctl enable nginx
