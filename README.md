@@ -16,6 +16,12 @@ Clone the repo:
 
 Using the TFL API, find the corresponding StopPoint(s) and add it/them to the properties/config.ini file.  You can also configure the number of bussess to display per stop.
 
+Individual stopids can be found by lookupg for the arrivals at the stop via the TFL website.  For example:
+
+https://tfl.gov.uk/bus/arrivals/490015396S/newington-green/
+
+The stopid for Newington Green is 490015396S as can be seen in the URL above.  To download a reference for all stopids, TFL also makes this data available.
+
 The column where the stopid is located is "Naptan_Atco" and you might want validate it against the "Stop_Name":
 
 http://tfl.gov.uk/tfl/syndication/feeds/bus-stops.csv
