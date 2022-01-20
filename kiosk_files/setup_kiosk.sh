@@ -60,3 +60,8 @@ sudo systemctl enable busstop_client
 ##############################
 
 sudo systemctl enable nginx
+##############################
+# Tweaks and Optimisations
+##############################
+#Disable hdmi to save power
+#Configure usb as network interface for ssh (gadget mode)
