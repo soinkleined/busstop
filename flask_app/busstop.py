@@ -6,23 +6,30 @@ from datetime import datetime as dt
 from pytz import timezone
 import configparser
 import os
+import time
 
 config = configparser.ConfigParser(converters={'list': lambda x: [i.strip() for i in x.split(',')]})
 config.read(os.path.join('../properties', 'config.ini'))
 url = 'https://api.tfl.gov.uk/StopPoint/'
+backoff = 10
 
 def getTFL(id,timeout):
-    try:
-        r = requests.get(url + id,timeout=timeout)
-        r.raise_for_status()
-    except requests.exceptions.HTTPError as errh:
-        print ("Http Error:",errh)
-    except requests.exceptions.ConnectionError as errc:
-        print ("Error Connecting:",errc)
-    except requests.exceptions.Timeout as errt:
-        print ("Timeout Error:",errt)
-    except requests.exceptions.RequestException as err:
-        print ("Exception:",err)
+    r = False
+    retry_secs = 0
+    while not r:
+        time.sleep(retry_secs)
+        try:
+            r = requests.get(url + id,timeout=timeout)
+            r.raise_for_status()
+        except requests.exceptions.HTTPError as errh:
+            print ("Http Error:",errh)
+        except requests.exceptions.ConnectionError as errc:
+            print ("Error Connecting:",errc)
+        except requests.exceptions.Timeout as errt:
+            print ("Timeout Error:",errt)
+        except requests.exceptions.RequestException as err:
+            print ("Exception:",err)
+        retry_secs += backoff
     return(r.json())
 
 def getStopName(id):
