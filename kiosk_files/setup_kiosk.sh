@@ -8,7 +8,6 @@ TIMESTAMP=$(date +%Y%m%d%H%M%S)
 AUTOSTART="/etc/xdg/lxsession/LXDE-pi/autostart"
 SPLASH="/usr/share/plymouth/themes/pix/splash.png"
 DIR=$(dirname "${0}")
-echo $DIR && exit
 
 ##############################
 # update OS and install software
@@ -45,21 +44,16 @@ echo $NEW_HOSTNAME > /etc/hostname
 sed -i "s/127.0.1.1.*$CURRENT_HOSTNAME/127.0.1.1\t$NEW_HOSTNAME/g" /etc/hosts
 
 ##############################
-# Configure busstop_server
+# Configure services
 ##############################
-
+sudo cp "${DIR}/service_configs/busstop_server" /etc/systemd/system/
+sudo cp "${DIR}/service_configs/busstop_client" /etc/systemd/system/
+sudo cp "${DIR}/service_configs/nginx.conf" /etc/nginx/sites-available/default
 sudo systemctl daemon-reload
 sudo systemctl enable busstop_server
-##############################
-# Configure busstop_client
-##############################
-
 sudo systemctl enable busstop_client
-##############################
-# Configure nginx
-##############################
-
 sudo systemctl enable nginx
+
 ##############################
 # Tweaks and Optimisations
 ##############################
