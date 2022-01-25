@@ -62,7 +62,8 @@ def getBusTime(id,num_busses):
           if num == num_busses:
                   break
     if num == 0:
-        bus = {"noInfo":"No information at this time."}    
+        #json_result = getTFL(id + '/Disruption',10) #Needs processing
+        bus = {"noInfo":"Live updates are not available for this location at the moment."}    
         busses.append(bus)
     my_stops ={"stopName":stop_name ,"dateAndTime":date_and_time, "busses":busses}
     return(my_stops)
