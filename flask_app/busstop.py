@@ -42,7 +42,7 @@ def getBusTime(id,num_busses):
     num = 0
     now = dt.now(timezone('Europe/London'))
     date_format = "%Y-%m-%d"
-    time_format  = "%H:%M:%SZ"
+    time_format  = "%H:%M:%S"
     json_result = getTFL(id + '/Arrivals',10)
     json_result.sort(key = lambda x:x["expectedArrival"])
     stop_name=getStopName(id)
