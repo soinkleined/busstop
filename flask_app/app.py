@@ -52,7 +52,7 @@ if not app.debug:
     app.logger.setLevel(logging.INFO)
     file_handler.setLevel(logging.INFO)
     app.logger.addHandler(file_handler)
-    app.logger.info('errors')
+    app.logger.info('started a python application server.')
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
