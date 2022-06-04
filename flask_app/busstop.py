@@ -3,7 +3,7 @@ import math
 import json
 import sys
 from datetime import datetime as dt
-from pytz import timezone
+import pytz
 import configparser
 import os
 import time
@@ -12,6 +12,10 @@ config = configparser.ConfigParser(converters={'list': lambda x: [i.strip() for 
 config.read(os.path.join('../properties', 'config.ini'))
 url = 'https://api.tfl.gov.uk/StopPoint/'
 backoff = 10
+local_tz=pytz.timezone('Europe/London')
+
+def utc_to_local(utc_dt):
+    return utc_dt.replace(tzinfo=pytz.utc).astimezone(local_tz)
 
 def getTFL(id,timeout):
     r = False
@@ -40,7 +44,7 @@ def getStopName(id):
 def getBusTime(id,num_busses):
     busses=[]
     num = 0
-    now = dt.now(timezone('Europe/London'))
+    now = dt.now(local_tz)
     date_format = "%Y-%m-%d"
     time_format  = "%H:%M:%S"
     json_result = getTFL(id + '/Arrivals',10)
@@ -51,7 +55,8 @@ def getBusTime(id,num_busses):
           due_in=None
           num += 1
           read_time=dt.strptime(x['expectedArrival'],"%Y-%m-%dT%H:%M:%SZ")
-          arrival_time=read_time.strftime(time_format)
+          local_dt = utc_to_local(read_time)
+          arrival_time=local_dt.strftime(time_format)
           away_min=math.floor(x['timeToStation']/60)
           if away_min == 0:
               due_in = 'due'
@@ -62,8 +67,7 @@ def getBusTime(id,num_busses):
           if num == num_busses:
                   break
     if num == 0:
-        #json_result = getTFL(id + '/Disruption',10) #Needs processing
-        bus = {"noInfo":"Live updates are not available for this location at the moment."}    
+        bus = {"noInfo":"No information at this time."}    
         busses.append(bus)
     my_stops ={"stopName":stop_name ,"dateAndTime":date_and_time, "busses":busses}
     return(my_stops)
