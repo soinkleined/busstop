@@ -68,14 +68,14 @@ def get_bus_time(stop_id,num_busses):
             due_in = 'due'
         else:
             due_in = str(away_min) + 'min'
-            bus = {"number":str(num),
-                   "lineName":str(item['lineName']),
-                   "destinationName":str(item['destinationName']),
-                   "arrivalTime":arrival_time,
-                   "dueIn":due_in}
-            busses.append(bus)
-            if num == num_busses:
-                break
+        bus = {"number":str(num),
+               "lineName":str(item['lineName']),
+               "destinationName":str(item['destinationName']),
+               "arrivalTime":arrival_time,
+               "dueIn":due_in}
+        busses.append(bus)
+        if num == num_busses:
+            break
     if num == 0:
         bus = {"noInfo":"No information at this time."}
         busses.append(bus)
