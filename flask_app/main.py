@@ -19,28 +19,24 @@ if __name__ != '__main__':
     app.logger.handlers = gunicorn_logger.handlers
     app.logger.setLevel(gunicorn_logger.level)
 
-@app.context_processor
-def get_all_stops():
-    '''get all stops'''
-    all_stops=get_stops()
-    return dict(all_stops=all_stops)
-
-@app.route("/")
-def index():
-    '''render index template'''
-    return render_template("index.html")
-
-@app.before_first_request
-def before_first_request():
-    '''start getting stops'''
-    threading.Thread(target=update_stops).start()
-
 def update_stops():
     '''update stops'''
     with app.app_context():
         while True:
             time.sleep(UPDATE_INTERVAL)
             turbo.push(turbo.replace(render_template('busstop.html'), 'all_stops'))
+
+@app.context_processor
+def get_all_stops():
+    '''start getting stops'''
+    threading.Thread(target=update_stops).start()
+    all_stops=get_stops()
+    return {"all_stops": all_stops}
+
+@app.route("/")
+def index():
+    '''render index template'''
+    return render_template("index.html")
 
 @app.errorhandler(500)
 def internal_error(error):
