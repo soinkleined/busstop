@@ -1,1 +1,1 @@
-gunicorn --bind localhost:8000 --workers 1 --threads 5  main:app
+env/bin/gunicorn --bind localhost:8000 --workers 1 --threads 5  main:app
