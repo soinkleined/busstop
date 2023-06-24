@@ -9,7 +9,7 @@ import pytz
 import requests
 
 CONFIG = configparser.ConfigParser(converters={'list': lambda x: [i.strip() for i in x.split(',')]})
-CONFIG.read(os.path.join('../properties', 'config.ini'))
+CONFIG.read('config.ini')
 URL = 'https://api.tfl.gov.uk/StopPoint/'
 BACKOFF = 10
 LOCAL_TZ=pytz.timezone('Europe/London')
