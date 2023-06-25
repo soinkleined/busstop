@@ -1,5 +1,4 @@
 '''standard module import'''
-import os
 import time
 import configparser
 import math
@@ -7,6 +6,7 @@ import json
 from datetime import datetime as dt
 import pytz
 import requests
+import sys
 
 CONFIG = configparser.ConfigParser(converters={'list': lambda x: [i.strip() for i in x.split(',')]})
 CONFIG.read('config.ini')
@@ -30,8 +30,8 @@ def get_tfl(tfl_id,timeout):
             response.raise_for_status()
         except requests.exceptions.RequestException as err:
             retry_secs += BACKOFF
-            print ("Exception:",  err)
-            print ("Retrying in ",retry_secs," seconds.")
+            print('Exception ',err, file=sys.stderr, flush=True)
+            print ("Retrying in ",retry_secs," seconds.", file=sys.stderr, flush=True)
             time.sleep(retry_secs)
             response = None
     return response.json()
@@ -85,7 +85,6 @@ def get_stops():
         all_stops.append(get_bus_time(stop_id,num_busses))
         num+=1
     return all_stops
-
 
 if __name__ == "__main__":
     print(json.dumps(get_stops(), indent=4))

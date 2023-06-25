@@ -57,8 +57,9 @@ if not app.debug:
     app.logger.addHandler(file_handler)
     app.logger.info('Started busstop.')
 
-th = threading.Thread(target=update_stops)
-th.daemon = True
-th.start()
+thread = threading.Thread(target=update_stops)
+thread.daemon = True
+thread.start()
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
