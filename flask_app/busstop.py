@@ -22,25 +22,19 @@ def utc_to_local(utc_dt):
 
 def get_tfl(tfl_id,timeout):
     '''download TFL json'''
-    request = False
+    response = None
     retry_secs = 0
-    while not request:
-        if retry_secs != 0:
-            print ("Retrying in ",retry_secs," seconds.")
-        time.sleep(retry_secs)
-        retry_secs += BACKOFF
+    while response is None:
         try:
-            request = requests.get(URL + tfl_id,timeout=timeout)
-            request.raise_for_status()
-        except requests.exceptions.HTTPError as errh:
-            print ("Http Error:", errh)
-        except requests.exceptions.ConnectionError as errc:
-            print ("Error Connecting:", errc)
-        except requests.exceptions.Timeout as errt:
-            print ("Timeout Error:", errt)
+            response = requests.get(URL + tfl_id,timeout=timeout)
+            response.raise_for_status()
         except requests.exceptions.RequestException as err:
+            retry_secs += BACKOFF
             print ("Exception:",  err)
-    return request.json()
+            print ("Retrying in ",retry_secs," seconds.")
+            time.sleep(retry_secs)
+            response = None
+    return response.json()
 
 def get_stop_name(stop_id):
     '''parse busstop name'''
