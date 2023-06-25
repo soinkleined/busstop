@@ -7,3 +7,4 @@ manual_scaling:
 #https://cloud.google.com/appengine/docs/flexible/python/runtime 
 runtime_config:
       operating_system: "ubuntu22"
+entrypoint: gunicorn -b :$PORT main:app
