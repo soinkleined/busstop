@@ -45,18 +45,17 @@ def get_tfl(tfl_id,timeout):
 def get_stop_name(stop_id):
     '''parse busstop name'''
     json_result = get_tfl(stop_id,10)
-    stop_name=json_result['commonName']
-    return stop_name
+    return json_result['commonName']
 
 def get_bus_time(stop_id,num_busses):
     '''format line schedule line data'''
     busses=[]
     num = 0
     now = dt.now(LOCAL_TZ)
-    json_result = get_tfl(stop_id + '/Arrivals',10)
+    json_result = get_tfl(f'{stop_id}/Arrivals', 10)
     json_result.sort(key = lambda x:x["expectedArrival"])
     stop_name=get_stop_name(stop_id)
-    date_and_time = now.strftime(DATE_FORMAT  + " " + TIME_FORMAT)
+    date_and_time = now.strftime(f"{DATE_FORMAT} {TIME_FORMAT}")
     for item in json_result:
         due_in=None
         num += 1
@@ -64,10 +63,7 @@ def get_bus_time(stop_id,num_busses):
         local_dt = utc_to_local(read_time)
         arrival_time=local_dt.strftime(TIME_FORMAT)
         away_min=math.floor(item['timeToStation']/60)
-        if away_min == 0:
-            due_in = 'due'
-        else:
-            due_in = str(away_min) + 'min'
+        due_in = 'due' if away_min == 0 else f'{str(away_min)}min'
         bus = {"number":str(num),
                "lineName":str(item['lineName']),
                "destinationName":str(item['destinationName']),
@@ -79,17 +75,14 @@ def get_bus_time(stop_id,num_busses):
     if num == 0:
         bus = {"noInfo":"No information at this time."}
         busses.append(bus)
-    my_stops ={"stopName":stop_name ,"dateAndTime":date_and_time, "busses":busses}
-    return my_stops
+    return {"stopName":stop_name ,"dateAndTime":date_and_time, "busses":busses}
 
 def get_stops():
     '''download stop information''' 
     all_stops=[]
-    num=0
-    for stop_id in CONFIG.getlist('busstop','stopid'):
+    for num, stop_id in enumerate(CONFIG.getlist('busstop','stopid')):
         num_busses=int(CONFIG.getlist('busstop','num_busses')[num])
         all_stops.append(get_bus_time(stop_id,num_busses))
-        num+=1
     return all_stops
 
 
