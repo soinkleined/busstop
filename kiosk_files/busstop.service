@@ -5,7 +5,11 @@ After=network.target
 [Service]
 User=pi
 WorkingDirectory=/home/pi/busstop/flask_app
+<<<<<<< HEAD
 ExecStart=/home/pi/busstop/flask_app/venv/bin/gunicorn --timeout 1000 --bind localhost:8000 --workers 3 --threads 12 app:app
+=======
+ExecStart=/home/pi/busstop/flask_app/venv/bin/gunicorn --timeout 1000 --bind localhost:8000 --workers 1 --threads 5 --timeout 90 app:app
+>>>>>>> 62b4c94 (	modified:   kiosk_files/busstop.service)
 Restart=always
 
 [Install]
