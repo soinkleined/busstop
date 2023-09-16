@@ -64,10 +64,7 @@ def get_bus_time(stop_id, num_busses):
         local_dt = utc_to_local(read_time)
         arrival_time = local_dt.strftime(TIME_FORMAT)
         away_min = math.floor(item['timeToStation']/60)
-        if away_min == 0:
-            due_in = 'due'
-        else:
-            due_in = str(away_min) + 'min'
+        due_in = 'due' if away_min == 0 else f'{str(away_min)}min'
         bus = {"number": str(num),
                "lineName": str(item['lineName']),
                "destinationName": str(item['destinationName']),
