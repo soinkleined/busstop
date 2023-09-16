@@ -56,7 +56,7 @@ For running the appliation as a service for kiosk mode, there is a work in progr
 Links to the hardware:
 - pi zero wh https://shop.pimoroni.com/products/raspberry-pi-zero-w?variant=39458414297171
 - screen https://shop.pimoroni.com/products/hyperpixel-4-square?variant=30138251477075
-- case https://shop.pimoroni.com/products/hyperpixel-4-square?variant=30138251477075
+- case https://www.shapeways.com/product/QQ225Z4NP/case-for-hyperpixel-4-0-square-non-touch-pi-zero
 - on/off usb switch https://thepihut.com/products/micro-usb-cable-with-on-off-switch
 
 ![hardware](https://raw.githubusercontent.com/soinkleined/busstop/main/readme_images/hardware.jpeg)
