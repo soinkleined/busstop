@@ -1,4 +1,4 @@
-'''standard module import'''
+"""standard module import"""
 import time
 import configparser
 import math
@@ -19,12 +19,12 @@ TIME_FORMAT = "%H:%M:%S"
 
 
 def utc_to_local(utc_dt):
-    '''convert time to proper format'''
+    """convert time to proper format"""
     return utc_dt.replace(tzinfo=pytz.utc).astimezone(LOCAL_TZ)
 
 
 def get_tfl(tfl_id, timeout):
-    '''download TFL json'''
+    """download TFL json"""
     response = None
     retry_secs = 0
     while response is None:
@@ -42,14 +42,14 @@ def get_tfl(tfl_id, timeout):
 
 
 def get_stop_name(stop_id):
-    '''parse busstop name'''
+    """parse busstop name"""
     json_result = get_tfl(stop_id, 10)
     stop_name = json_result['commonName']
     return stop_name
 
 
 def get_bus_time(stop_id, num_busses):
-    '''format line schedule line data'''
+    """format line schedule line data"""
     busses = []
     num = 0
     now = dt.now(LOCAL_TZ)
@@ -58,7 +58,6 @@ def get_bus_time(stop_id, num_busses):
     stop_name = get_stop_name(stop_id)
     date_and_time = now.strftime(f"{DATE_FORMAT} {TIME_FORMAT}")
     for item in json_result:
-        due_in = None
         num += 1
         read_time = dt.strptime(item['expectedArrival'], "%Y-%m-%dT%H:%M:%SZ")
         local_dt = utc_to_local(read_time)
@@ -83,7 +82,7 @@ def get_bus_time(stop_id, num_busses):
 
 
 def get_stops():
-    '''download stop information'''
+    """download stop information"""
     all_stops = []
     num = 0
     for stop_id in CONFIG.getlist('busstop', 'stopid'):

@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://raw.githubusercontent.com/soinkleined/busstop/main/flask_app/static/ico/android-chrome-192x192.png" alt="busstop">
+<img src="flask_app/static/ico/android-chrome-192x192.png" alt="busstop">
 </p>
 <h1 align="center" style="margin-top: 0px;">busstop</h1>
 <p align="center" >Realtime London bus stop information from TFL, on a raspberry pi, on your desktop.</p>
@@ -48,9 +48,9 @@ Point your browser to http://127.0.0.1:5000/
 
 For running the appliation as a service for kiosk mode, there is a work in progress in the kiosk_files folder that will have all the requisite configuration information for guncorn, nginx, chrome, etc.
 
-![busstop web](https://raw.githubusercontent.com/soinkleined/busstop/main/readme_images/busstop_web.png)
+![busstop web](readme_images/busstop_web.png)
 
-![busstop example](https://raw.githubusercontent.com/soinkleined/busstop/main/readme_images/busstop_example.jpeg)
+![busstop example](readme_images/busstop_example.jpeg)
 
 # Hardware list
 Links to the hardware:
@@ -59,7 +59,7 @@ Links to the hardware:
 - case https://www.shapeways.com/product/QQ225Z4NP/case-for-hyperpixel-4-0-square-non-touch-pi-zero
 - on/off usb switch https://thepihut.com/products/micro-usb-cable-with-on-off-switch
 
-![hardware](https://raw.githubusercontent.com/soinkleined/busstop/main/readme_images/hardware.jpeg)
+![hardware](readme_images/hardware.jpeg)
 
 # To Do
 1. add any missing credits
