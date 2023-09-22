@@ -30,20 +30,25 @@ def get_tfl(tfl_id, timeout):
     while response is None:
         try:
             response = requests.get(URL + tfl_id, timeout=timeout)
+            print(response)
             response.raise_for_status()
+            retry_secs = 0
         except requests.exceptions.ConnectionError:
             print("A connection error occurred. Please check your internet connection.")
+            retry_secs += BACKOFF
         except requests.exceptions.Timeout:
             print("The request timed out.")
+            retry_secs += BACKOFF
         except requests.exceptions.HTTPError as err:
             print("HTTP Error:", err)
+            retry_secs += BACKOFF
         except requests.exceptions.RequestException as err:
             print("An error occurred:", err)
             retry_secs += BACKOFF
+        if response is None:
             print("Retrying in ", retry_secs,
                   " seconds.", file=sys.stderr, flush=True)
             time.sleep(retry_secs)
-            response = None
     return response.json()
 
 
