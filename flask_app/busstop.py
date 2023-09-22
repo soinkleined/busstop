@@ -31,9 +31,15 @@ def get_tfl(tfl_id, timeout):
         try:
             response = requests.get(URL + tfl_id, timeout=timeout)
             response.raise_for_status()
+        except requests.exceptions.ConnectionError:
+            print("A connection error occurred. Please check your internet connection.")
+        except requests.exceptions.Timeout:
+            print("The request timed out.")
+        except requests.exceptions.HTTPError as err:
+            print("HTTP Error:", err)
         except requests.exceptions.RequestException as err:
+            print("An error occurred:", err)
             retry_secs += BACKOFF
-            print('Exception ', err, file=sys.stderr, flush=True)
             print("Retrying in ", retry_secs,
                   " seconds.", file=sys.stderr, flush=True)
             time.sleep(retry_secs)
