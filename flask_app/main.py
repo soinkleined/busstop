@@ -80,11 +80,11 @@ def not_found_error(error):
     return render_template('errors/404.html'), 404
 
 
-app.logger.info('busstop started')
-
 thread = threading.Thread(target=update_stops)
 thread.daemon = True
 thread.start()
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
+else:
+    app.logger.info('busstop started')

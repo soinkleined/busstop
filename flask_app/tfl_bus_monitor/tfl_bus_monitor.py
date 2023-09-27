@@ -10,13 +10,19 @@ import pytz
 import requests
 
 logging.basicConfig(
-    level=logging.INFO,
     format='[%(asctime)s] [%(process)d] [%(levelname)s] %(message)s',  # Specify the log message format
     datefmt='%Y-%m-%d %H:%M:%S %z'  # Define the date format
 )
 
 logger = logging.getLogger(__name__)
 
+if __name__ != '__main__':
+    gunicorn_logger = logging.getLogger('gunicorn.error')
+    logger.handlers = gunicorn_logger.handlers
+    logger.setLevel(gunicorn_logger.level)
+#    loggers = [logging.getLogger()]  # get the root logger
+#    loggers = loggers + [logging.getLogger(name) for name in logging.root.manager.loggerDict]
+#    print(loggers)
 
 class TFLBusMonitor:
     def __init__(self, config_file='config.ini'):
