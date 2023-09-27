@@ -1,5 +1,5 @@
 """
-https://github.com/realpython/flask-boilerplate
+https://github.com/soinkleined/busstop
 """
 import logging
 from logging import Formatter, FileHandler
@@ -7,7 +7,8 @@ import threading
 import time
 from flask import Flask, request, render_template
 from turbo_flask import Turbo
-from busstop import get_stops
+from tfl_bus_monitor import get_stops
+
 
 UPDATE_INTERVAL = 15
 
@@ -18,6 +19,7 @@ if __name__ != '__main__':
     gunicorn_logger = logging.getLogger('gunicorn.error')
     app.logger.handlers = gunicorn_logger.handlers
     app.logger.setLevel(gunicorn_logger.level)
+    app.logger.propagate = False # Prevent duplicate logging
 
 
 def update_stops():
@@ -78,17 +80,7 @@ def not_found_error(error):
     return render_template('errors/404.html'), 404
 
 
-if not app.debug:
-    file_handler = FileHandler('/tmp/error.log')
-    file_handler.setFormatter(
-        Formatter(
-                '%(asctime)s %(levelname)s: %(message)s '
-                '[in %(pathname)s: %(lineno)d]')
-    )
-    app.logger.setLevel(logging.INFO)
-    file_handler.setLevel(logging.INFO)
-    app.logger.addHandler(file_handler)
-    app.logger.info('Started busstop.')
+app.logger.info('busstop started')
 
 thread = threading.Thread(target=update_stops)
 thread.daemon = True

@@ -7,7 +7,7 @@
 # Info
 Busstop returns current arrival information for busses at the requested stop(s).  It prints the output in a style similar to that of the live bus update signs available at many bus stops throughout London.
 
-The script runs as a flask appliction and uses turbo flask web sockets to update it dynamically in 15 second intervals. It is intended to run via a raspberry pi whilst using chrome in kiosk mode.
+The script runs as a flask application and uses turbo flask web sockets to update it dynamically in 15 second intervals. It is intended to run via a raspberry pi whilst using chrome in kiosk mode.
 
 Clone the repo:
 
@@ -22,7 +22,7 @@ https://tfl.gov.uk/bus/arrivals/490015396S/newington-green/
 
 The stopid for Newington Green is 490015396S as can be seen in the URL above.  To download a reference for all stopids, TFL also makes this data available.
 
-The column where the stopid is located is "Naptan_Atco" and you might want validate it against the "Stop_Name":
+The column where the stopid is located is "Naptan_Atco" and you might want to validate it against the "Stop_Name":
 
 http://tfl.gov.uk/tfl/syndication/feeds/bus-stops.csv
 
