@@ -15,6 +15,6 @@ pytz==2023.3.post1
 requests==2.31.0
 simple-websocket==0.10.1
 Turbo-Flask==0.8.4
-urllib3==2.0.4
+urllib3==2.0.5
 Werkzeug==2.3.7
 wsproto==1.2.0
