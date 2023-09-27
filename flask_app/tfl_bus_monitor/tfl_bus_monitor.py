@@ -5,12 +5,9 @@ import logging
 import math
 import time
 from datetime import datetime as dt
-from logging import Formatter
 
 import pytz
 import requests
-
-
 
 logging.basicConfig(
     level=logging.INFO,
@@ -19,6 +16,7 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger(__name__)
+
 
 class TFLBusMonitor:
     def __init__(self, config_file='config.ini'):
