@@ -83,15 +83,14 @@ class TFLBusMonitor:
     def get_stop_name(self, stop_id):
         """parse busstop name"""
         json_result = self.get_tfl(stop_id, 10)
-        stop_name = json_result['commonName']
-        return stop_name
+        return json_result['commonName']
 
     def get_bus_time(self, stop_id, num_busses):
         """format line schedule line data"""
         busses = []
         num = 0
         now = dt.now(self.LOCAL_TZ)
-        json_result = self.get_tfl(stop_id + '/Arrivals', 10)
+        json_result = self.get_tfl(f'{stop_id}/Arrivals', 10)
         json_result.sort(key=lambda x: x["expectedArrival"])
         stop_name = self.get_stop_name(stop_id)
         date_and_time = now.strftime(f"{self.DATE_FORMAT} {self.TIME_FORMAT}")
@@ -113,19 +112,18 @@ class TFLBusMonitor:
         if num == 0:
             bus_info = {"noInfo": "No information at this time."}
             busses.append(bus_info)
-        my_stops = {"stopName": stop_name,
-                    "dateAndTime": date_and_time,
-                    "busses": busses}
-        return my_stops
+        return {
+            "stopName": stop_name,
+            "dateAndTime": date_and_time,
+            "busses": busses,
+        }
 
     def get_stops(self):
         """download stop information"""
         all_stops = []
-        num = 0
-        for stop_id in self.CONFIG.getlist('busstop', 'stopid'):
+        for num, stop_id in enumerate(self.CONFIG.getlist('busstop', 'stopid')):
             num_busses = int(self.CONFIG.getlist('busstop', 'num_busses')[num])
             all_stops.append(self.get_bus_time(stop_id, num_busses))
-            num += 1
         return all_stops
 
 
