@@ -130,6 +130,7 @@ class TFLBusMonitor:
 
 
 if __name__ == "__main__":
+
     import argparse
 
     bus_monitor = TFLBusMonitor()
@@ -157,20 +158,20 @@ if __name__ == "__main__":
                     )
             print("\n")
 
-def formatter(prog):
-    """format help output instead of lambda function"""
-    return argparse.HelpFormatter(prog, max_help_position=100, width=200)
-    
 
-DESCRIPTION = "Get bus stop data from TFL"
-parser = argparse.ArgumentParser(description=DESCRIPTION, formatter_class=formatter)
-group = parser.add_mutually_exclusive_group()
-group.add_argument('-t', '--print-text', action='store_true', help='print formatted text')
-group.add_argument('-j', '--print-json', action='store_true', help='pretty print json (default)')
-args = parser.parse_args()
+    def formatter(prog):
+        """format help output instead of lambda function"""
+        return argparse.HelpFormatter(prog, max_help_position=100, width=200)
 
 
-if args.print_text:
-    print_text(bus_json)
-else:
-    print_json(bus_json)
+    DESCRIPTION = "Get bus stop data from TFL"
+    parser = argparse.ArgumentParser(description=DESCRIPTION, formatter_class=formatter)
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument('-t', '--print-text', action='store_true', help='print formatted text')
+    group.add_argument('-j', '--print-json', action='store_true', help='pretty print json (default)')
+    args = parser.parse_args()
+
+    if args.print_text:
+        print_text(bus_json)
+    else:
+        print_json(bus_json)
