@@ -5,7 +5,7 @@ import logging
 from logging import Formatter, FileHandler
 import threading
 import time
-from flask import Flask, request, render_template
+from flask import Flask, redirect, request, render_template, url_for
 from turbo_flask import Turbo
 from tfl_bus_monitor import get_stops
 
@@ -44,7 +44,7 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/admin")
+@app.route("/admin", methods=['GET'])
 def admin():
     """render admin template"""
     with open('config.ini', 'r') as file:
@@ -59,7 +59,9 @@ def admin_post():
     if request.method == 'POST':
         with open('config.ini', 'w') as f:
             f.write(str(config_data))
-    return render_template('admin.html', nopol=config_data)
+    #return render_template('admin.html', nopol=config_data)
+    return redirect(url_for("index"))
+ 
 
 
 @app.route("/about")
