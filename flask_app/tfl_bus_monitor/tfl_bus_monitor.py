@@ -33,7 +33,7 @@ class TFLBusMonitor:
             converters={'list': lambda x: [i.strip() for i in x.split(',')]})
         if "BUSSTOP_CONFIG" in os.environ:
             config_file = os.environ["BUSSTOP_CONFIG"]
-        self.CONFIG.read(config_file)
+        self.CONFIG_FILE = config_file
         self.URL = 'https://api.tfl.gov.uk/StopPoint/'
         self.BACKOFF = 10
         self.LOCAL_TZ = pytz.timezone('Europe/London')
@@ -91,7 +91,7 @@ class TFLBusMonitor:
         busses = []
         num = 0
         now = dt.now(self.LOCAL_TZ)
-        json_result = self.get_tfl(stop_id + '/Arrivals', 10)
+        json_result = self.get_tfl(f"{stop_id}/Arrivals", 10)
         json_result.sort(key=lambda x: x["expectedArrival"])
         stop_name = self.get_stop_name(stop_id)
         date_and_time = now.strftime(f"{self.DATE_FORMAT} {self.TIME_FORMAT}")
@@ -122,6 +122,7 @@ class TFLBusMonitor:
         """download stop information"""
         all_stops = []
         num = 0
+        self.CONFIG.read(self.CONFIG_FILE)
         for stop_id in self.CONFIG.getlist('busstop', 'stopid'):
             num_busses = int(self.CONFIG.getlist('busstop', 'num_busses')[num])
             all_stops.append(self.get_bus_time(stop_id, num_busses))

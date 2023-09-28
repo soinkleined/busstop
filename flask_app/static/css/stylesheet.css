@@ -59,7 +59,7 @@ a {
     height: 16px;
     margin-top: 20px;
 }
-.error {
+.error, .back {
     display: inline-block;
     text-align: center;
     width: 680px;
