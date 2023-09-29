@@ -23,9 +23,6 @@ ins               {text-decoration: none;}
 del               {text-decoration: line-through;}
 table             {border-collapse: collapse;border-spacing: 0;}
 
-
-
-
 body {
     color: yellow;
     background-color: black;
@@ -38,14 +35,22 @@ span{
 a {
     color: yellow;
 }
-
+.stopinfo-table td {
+  padding: 8px;
+}
+.stopinfo-table th {
+  padding: 8px;
+}
+.dataframe thead tr {
+  text-align: left;
+}
 #container {
     width: 680px;
     margin: 0px auto;
 }
 
 
-#stop_name {
+#stop_name{
     display: inline-block;
     text-align: center;
     width: 680px;

@@ -70,6 +70,12 @@ def about():
     return render_template("about.html")
 
 
+@app.route("/stopinfo")
+def stopinfo():
+    """render stopinfo template"""
+    return render_template("stopinfo.html")
+
+
 @app.errorhandler(500)
 def internal_error(error):
     """render 500 page"""

@@ -28,15 +28,11 @@
 <!-- scripts -->
 <!-- /scripts -->
 
-<title>busstop - about</title>
+    <title>busstop - stop info</title>
 </head>
 <body >
+        </br>
 <div id="container">
-</br>
-<center>
-    <img  src="{{ url_for('static', filename='img/splash.png') }}" alt="busstop" />
-</br>
-        <a href="https://github.com/soinkleined/busstop">busstop on GitHub</a>
-</center>
-</div> 
+        {% include "table.html" %}
+    </div> 
 </body>
