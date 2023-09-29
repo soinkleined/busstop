@@ -16,10 +16,11 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger(__name__)
+logger.propigate = False
 
 if __name__ != '__main__':
     gunicorn_logger = logging.getLogger('gunicorn.error')
-    logger.handlers = gunicorn_logger.handlers
+    #logger.handlers = gunicorn_logger.handlers
     logger.setLevel(gunicorn_logger.level)
 
 
@@ -33,6 +34,7 @@ class TFLBusMonitor:
             converters={'list': lambda x: [i.strip() for i in x.split(',')]})
         if "BUSSTOP_CONFIG" in os.environ:
             config_file = os.environ["BUSSTOP_CONFIG"]
+        self.stop_name_cache = {}
         self.CONFIG_FILE = config_file
         self.URL = 'https://api.tfl.gov.uk/StopPoint/'
         self.BACKOFF = 10
@@ -82,8 +84,14 @@ class TFLBusMonitor:
 
     def get_stop_name(self, stop_id):
         """parse busstop name"""
+        if stop_id in self.stop_name_cache:
+            return self.stop_name_cache[stop_id]
         json_result = self.get_tfl(stop_id, 10)
         stop_name = json_result['commonName']
+
+        if stop_name:
+            self.stop_name_cache[stop_id] = stop_name  # Cache the stop name
+
         return stop_name
 
     def get_bus_time(self, stop_id, num_busses):
