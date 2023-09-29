@@ -35,11 +35,13 @@ span{
 a {
     color: yellow;
 }
-.stopinfo-table td {
-  padding: 8px;
-}
 .stopinfo-table th {
   padding: 8px;
+  font-size: 10px;
+}
+.stopinfo-table td {
+  padding: 8px;
+  font-size: 10px;
 }
 .dataframe thead tr {
   text-align: left;
