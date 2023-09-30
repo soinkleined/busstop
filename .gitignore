@@ -1,4 +1,7 @@
 __pychache__
 .DS_Store
 flask_app/error.log
-flask_app/__pycache__
+*/__pycache__
+*/venv
+tfl_bus_monitor/build
+tfl_bus_monitor/tfl_bus_monitor.egg-info
