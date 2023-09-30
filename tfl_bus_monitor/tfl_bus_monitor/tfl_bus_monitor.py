@@ -5,6 +5,7 @@ import os
 import time
 import math
 import json
+import importlib.resources as resources
 from datetime import datetime as dt
 
 import pytz
@@ -20,7 +21,7 @@ logger.propigate = False
 
 if __name__ != '__main__':
     gunicorn_logger = logging.getLogger('gunicorn.error')
-    #logger.handlers = gunicorn_logger.handlers
+    # logger.handlers = gunicorn_logger.handlers
     logger.setLevel(gunicorn_logger.level)
 
 
@@ -28,8 +29,12 @@ if __name__ != '__main__':
 #    loggers = loggers + [logging.getLogger(name) for name in logging.root.manager.loggerDict]
 #    print(loggers)
 
+
 class TFLBusMonitor:
-    def __init__(self, config_file='config.ini'):
+    package_path = resources.files(__package__)
+    config_path = os.path.join(package_path, 'config/config.ini')
+
+    def __init__(self, config_file=config_path):
         self.CONFIG = configparser.ConfigParser(
             converters={'list': lambda x: [i.strip() for i in x.split(',')]})
         if "BUSSTOP_CONFIG" in os.environ:
@@ -138,18 +143,16 @@ class TFLBusMonitor:
         return all_stops
 
 
-if __name__ == "__main__":
-
+def main():
+    """entrypoint main function"""
     import argparse
 
     bus_monitor = TFLBusMonitor()
     bus_json = bus_monitor.get_stops()
 
-
     def print_json(busstop_json):
         """pretty print json"""
         print(json.dumps(busstop_json, indent=4))
-
 
     def print_text(busstop_json):
         """print formatted text"""
@@ -167,14 +170,12 @@ if __name__ == "__main__":
                     )
             print("\n")
 
-
     def formatter(prog):
         """format help output instead of lambda function"""
         return argparse.HelpFormatter(prog, max_help_position=100, width=200)
 
-
-    DESCRIPTION = "Get bus stop data from TFL"
-    parser = argparse.ArgumentParser(description=DESCRIPTION, formatter_class=formatter)
+    description = "Get bus stop data from TFL"
+    parser = argparse.ArgumentParser(description=description, formatter_class=formatter)
     group = parser.add_mutually_exclusive_group()
     group.add_argument('-t', '--print-text', action='store_true', help='print formatted text')
     group.add_argument('-j', '--print-json', action='store_true', help='pretty print json (default)')
@@ -184,3 +185,7 @@ if __name__ == "__main__":
         print_text(bus_json)
     else:
         print_json(bus_json)
+
+
+if __name__ == "__main__":
+    main()
