@@ -32,7 +32,7 @@ if __name__ != '__main__':
 
 class TFLBusMonitor:
     package_path = resources.files(__package__)
-    config_path = os.path.join(package_path, 'config/config.ini')
+    config_path = os.path.join(str(package_path), 'config/config.ini')
 
     def __init__(self, config_file=config_path):
         self.CONFIG = configparser.ConfigParser(
