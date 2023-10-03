@@ -31,16 +31,19 @@ if __name__ != '__main__':
 
 
 class TFLBusMonitor:
-    package_path = resources.files(__package__)
-    config_path = os.path.join(str(package_path), 'config/config.ini')
+    def get_config_path(self):
+        if "BUSSTOP_CONFIG" in os.environ:
+            config_path = os.environ["BUSSTOP_CONFIG"]
+        else:
+            package_path = resources.files(__package__)
+            config_path = os.path.join(str(package_path), 'config/config.ini')
+        return config_path
 
-    def __init__(self, config_file=config_path):
+    def __init__(self, config_file=None):
         self.CONFIG = configparser.ConfigParser(
             converters={'list': lambda x: [i.strip() for i in x.split(',')]})
-        if "BUSSTOP_CONFIG" in os.environ:
-            config_file = os.environ["BUSSTOP_CONFIG"]
         self.stop_name_cache = {}
-        self.CONFIG_FILE = config_file
+        self.CONFIG_FILE = self.get_config_path()
         self.URL = 'https://api.tfl.gov.uk/StopPoint/'
         self.BACKOFF = 10
         self.LOCAL_TZ = pytz.timezone('Europe/London')

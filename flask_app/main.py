@@ -7,7 +7,7 @@ import threading
 import time
 from flask import Flask, redirect, request, render_template, url_for
 from turbo_flask import Turbo
-from tfl_bus_monitor import get_stops
+from tfl_bus_monitor import get_stops, get_config_path
 
 
 UPDATE_INTERVAL = 15
@@ -47,7 +47,7 @@ def index():
 @app.route("/admin", methods=['GET'])
 def admin():
     """render admin template"""
-    with open('config.ini', 'r') as file:
+    with open(get_config_path(), 'r') as file:
         config_data = file.read()
     return render_template('admin.html', config_data=config_data)
 
@@ -57,7 +57,7 @@ def admin_post():
     """render admin post template"""
     if request.method == 'POST':
         config_data = request.form['config_data']
-        with open('config.ini', 'w') as f:
+        with open(get_config_path(), 'w') as f:
             f.write(str(config_data))
     #return render_template('admin.html', nopol=config_data)
     return redirect(url_for("index"))
