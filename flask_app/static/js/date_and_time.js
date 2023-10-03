@@ -8,19 +8,19 @@ function prefixZero(i) {
 
 function formatDateAndTime() {
     // updated vars to resemble unix time formats
-    var x = new Date()
-    var Y = x.getFullYear();
-    var m = prefixZero(x.getMonth()+1);
-    var d = prefixZero(x.getDate());
-    var H = prefixZero(x.getHours());
-    var M = prefixZero(x.getMinutes());
-    var S = prefixZero(x.getSeconds());
-    var farmatted_d_and_t = Y + "/" +  m + "/" + d + " - " + H + ":" +  M + ":" +  S;
+    x = new Date()
+    Y = x.getFullYear();
+    m = prefixZero(x.getMonth()+1);
+    d = prefixZero(x.getDate());
+    H = prefixZero(x.getHours());
+    M = prefixZero(x.getMinutes());
+    S = prefixZero(x.getSeconds());
+    farmatted_d_and_t = Y + "/" +  m + "/" + d + " - " + H + ":" +  M + ":" +  S;
     document.getElementById('date_and_time').innerHTML = farmatted_d_and_t;
     displayDateAndTime();
  }
 
 function displayDateAndTime(){
-    var refresh=1000; // Refresh rate in milli seconds
+    refresh=1000; // Refresh rate in milli seconds
     mytime=setTimeout('formatDateAndTime()',refresh)
 }
