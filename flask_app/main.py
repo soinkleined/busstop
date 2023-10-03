@@ -55,8 +55,8 @@ def admin():
 @app.route("/admin", methods=['POST'])
 def admin_post():
     """render admin post template"""
-    config_data = request.form['config_data']
     if request.method == 'POST':
+        config_data = request.form['config_data']
         with open('config.ini', 'w') as f:
             f.write(str(config_data))
     #return render_template('admin.html', nopol=config_data)

@@ -126,20 +126,19 @@ class TFLBusMonitor:
         if num == 0:
             bus_info = {"noInfo": "No information at this time."}
             busses.append(bus_info)
-        my_stops = {"stopName": stop_name,
-                    "dateAndTime": date_and_time,
-                    "busses": busses}
-        return my_stops
+        return {
+            "stopName": stop_name,
+            "dateAndTime": date_and_time,
+            "busses": busses,
+        }
 
     def get_stops(self):
         """download stop information"""
         all_stops = []
-        num = 0
         self.CONFIG.read(self.CONFIG_FILE)
-        for stop_id in self.CONFIG.getlist('busstop', 'stopid'):
+        for num, stop_id in enumerate(self.CONFIG.getlist('busstop', 'stopid')):
             num_busses = int(self.CONFIG.getlist('busstop', 'num_busses')[num])
             all_stops.append(self.get_bus_time(stop_id, num_busses))
-            num += 1
         return all_stops
 
 
