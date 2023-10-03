@@ -33,11 +33,9 @@ if __name__ != '__main__':
 class TFLBusMonitor:
     def get_config_path(self):
         if "BUSSTOP_CONFIG" in os.environ:
-            config_path = os.environ["BUSSTOP_CONFIG"]
-        else:
-            package_path = resources.files(__package__)
-            config_path = os.path.join(str(package_path), 'config/config.ini')
-        return config_path
+            return os.environ["BUSSTOP_CONFIG"]
+        package_path = resources.files(__package__)
+        return os.path.join(str(package_path), 'config/config.ini')
 
     def __init__(self, config_file=None):
         self.CONFIG = configparser.ConfigParser(
