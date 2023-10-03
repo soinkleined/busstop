@@ -16,7 +16,7 @@ Clone the repo:
 
 Using the TFL API, find the corresponding StopPoint(s) and add it/them to the properties/config.ini file.  You can also configure the number of bussess to display per stop.
 
-Individual stopids can be found by lookupg for the arrivals at the stop via the TFL website.  For example:
+Individual stopids can be found by looking for the arrivals at the stop via the TFL website.  For example:
 
 https://tfl.gov.uk/bus/arrivals/490015396S/newington-green/
 
@@ -46,7 +46,7 @@ After cloning the repo and all requisite packages are installed, do the followin
 
 Point your browser to http://127.0.0.1:5000/
 
-For running the appliation as a service for kiosk mode, there is a work in progress in the kiosk_files folder that will have all the requisite configuration information for guncorn, nginx, chrome, etc.
+For running the application as a service for kiosk mode, there is a work in progress in the kiosk_files folder that will have all the requisite configuration information for gunicorn, nginx, chrome, etc.
 
 ![busstop web](readme_images/busstop_web.png)
 
@@ -65,7 +65,7 @@ Links to the hardware:
 1. add any missing credits
 2. finish kiosk build automation
 3. handle errors for connectivity, api availability, etc.
-4. look for confg optimisations for RPI zero, i.e. zram, gpu memory config, etc
+4. look for config optimisations for RPI zero, i.e. zram, gpu memory config, etc
 
 ## Acknowledgements
 Balena.io is a very interesting platform for IoT fleet management.  I saw their blog post about creating a live train time sign under your monitor and was inspired to do something similar for busses. There are a lot of links to other resources from the post as well as many other project ideas. 
