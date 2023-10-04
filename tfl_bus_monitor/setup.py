@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
     name='tfl_bus_monitor',
     python_requires='>=3.11',
-    version='0.2',
+    version='0.4',
     author='David Klein',
     author_email='david@soinkleined.com',
     url='https://www.soinkleined.com',
@@ -14,7 +14,7 @@ setup(
         'pytz>=2021.1',
     ],
     package_data={
-        'tfl_bus_monitor': ['config/config.ini'],
+        'tfl_bus_monitor': ['config/busstop_config.ini'],
     },
     entry_points={
         'console_scripts': [

@@ -2,13 +2,13 @@
 https://github.com/soinkleined/busstop
 """
 import logging
-from logging import Formatter, FileHandler
 import threading
 import time
+
 from flask import Flask, redirect, request, render_template, url_for
 from turbo_flask import Turbo
-from tfl_bus_monitor import get_stops, get_config_path
 
+from tfl_bus_monitor import get_stops, get_config_path
 
 UPDATE_INTERVAL = 15
 
@@ -19,7 +19,7 @@ if __name__ != '__main__':
     gunicorn_logger = logging.getLogger('gunicorn.error')
     app.logger.handlers = gunicorn_logger.handlers
     app.logger.setLevel(gunicorn_logger.level)
-    app.logger.propagate = False # Prevent duplicate logging
+    app.logger.propagate = False  # Prevent duplicate logging
 
 
 def update_stops():
@@ -59,9 +59,8 @@ def admin_post():
         config_data = request.form['config_data']
         with open(get_config_path(), 'w') as f:
             f.write(str(config_data))
-    #return render_template('admin.html', nopol=config_data)
+    # return render_template('admin.html', nopol=config_data)
     return redirect(url_for("index"))
- 
 
 
 @app.route("/about")

@@ -1,4 +1,3 @@
-"""standard package import"""
 import configparser
 import logging
 import os
@@ -7,53 +6,54 @@ import math
 import json
 import importlib.resources as resources
 from datetime import datetime as dt
+from typing import Any, List, Dict, Union
 
 import pytz
 import requests
 
 logging.basicConfig(
-    format='[%(asctime)s] [%(process)d] [%(levelname)s] %(message)s',  # Specify the log message format
-    datefmt='%Y-%m-%d %H:%M:%S %z'  # Define the date format
+    format='[%(asctime)s] [%(process)d] [%(levelname)s] %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S %z'
 )
 
 logger = logging.getLogger(__name__)
-logger.propigate = False
+logger.propagate = False
 
 if __name__ != '__main__':
     gunicorn_logger = logging.getLogger('gunicorn.error')
-    # logger.handlers = gunicorn_logger.handlers
     logger.setLevel(gunicorn_logger.level)
 
 
-#    loggers = [logging.getLogger()]  # get the root logger
-#    loggers = loggers + [logging.getLogger(name) for name in logging.root.manager.loggerDict]
-#    print(loggers)
+def get_config_path() -> str:
+    conf_file_name = "busstop_config.ini"
+    if "BUSSTOP_HOME" in os.environ:
+        return os.environ[f"BUSSTOP_HOME/{conf_file_name}"]
+    home_dir = os.path.expanduser("~")
+    if os.path.isfile(f"{home_dir}/{conf_file_name}"):
+        return f"{home_dir}/{conf_file_name}"
+    package_path = resources.files(__package__)
+    return os.path.join(str(package_path), f"config/{conf_file_name}")
 
 
 class TFLBusMonitor:
-    def get_config_path(self):
-        if "BUSSTOP_CONFIG" in os.environ:
-            return os.environ["BUSSTOP_CONFIG"]
-        package_path = resources.files(__package__)
-        return os.path.join(str(package_path), 'config/config.ini')
 
-    def __init__(self, config_file=None):
+    def __init__(self) -> None:
         self.CONFIG = configparser.ConfigParser(
             converters={'list': lambda x: [i.strip() for i in x.split(',')]})
-        self.stop_name_cache = {}
-        self.CONFIG_FILE = self.get_config_path()
-        self.URL = 'https://api.tfl.gov.uk/StopPoint/'
-        self.BACKOFF = 10
+        self.stop_name_cache: Dict[str, str] = {}
+        self.CONFIG_FILE: str = get_config_path()
+        self.URL: str = 'https://api.tfl.gov.uk/StopPoint/'
+        self.BACKOFF: int = 10
         self.LOCAL_TZ = pytz.timezone('Europe/London')
-        self.DATE_FORMAT = "%Y-%m-%d"
-        self.TIME_FORMAT = "%H:%M:%S"
+        self.DATE_FORMAT: str = "%Y-%m-%d"
+        self.TIME_FORMAT: str = "%H:%M:%S"
 
-    def utc_to_local(self, utc_dt):
-        """convert time to proper format"""
+    def utc_to_local(self, utc_dt: dt) -> dt:
+        """Convert UTC time to local time"""
         return utc_dt.replace(tzinfo=pytz.utc).astimezone(self.LOCAL_TZ)
 
-    def get_tfl(self, tfl_id, timeout):
-        """download TFL json"""
+    def get_tfl(self, tfl_id: str, timeout: int) -> Union[Dict[str, Any], None]:
+        """Download TFL JSON data"""
         response = None
         retry_secs = 0
         error_info = None  # Store error information
@@ -88,8 +88,8 @@ class TFLBusMonitor:
         logger.info(f"{response.status_code} {response.reason} -> {self.URL}{tfl_id}")
         return response.json() if response else None
 
-    def get_stop_name(self, stop_id):
-        """parse busstop name"""
+    def get_stop_name(self, stop_id: str) -> str:
+        """Parse bus stop name"""
         if stop_id in self.stop_name_cache:
             return self.stop_name_cache[stop_id]
         json_result = self.get_tfl(stop_id, 10)
@@ -100,13 +100,14 @@ class TFLBusMonitor:
 
         return stop_name
 
-    def get_bus_time(self, stop_id, num_busses):
-        """format line schedule line data"""
+    def get_bus_time(self, stop_id: str, num_busses: int) -> Dict[str, Union[str, List[Dict[str, str]]]]:
+        """Format bus schedule data"""
         busses = []
         num = 0
         now = dt.now(self.LOCAL_TZ)
         json_result = self.get_tfl(f"{stop_id}/Arrivals", 10)
-        json_result.sort(key=lambda x: x["expectedArrival"])
+        if json_result is not None and isinstance(json_result, list):
+            json_result.sort(key=lambda x: x["expectedArrival"])
         stop_name = self.get_stop_name(stop_id)
         date_and_time = now.strftime(f"{self.DATE_FORMAT} {self.TIME_FORMAT}")
         for item in json_result:
@@ -114,7 +115,7 @@ class TFLBusMonitor:
             read_time = dt.strptime(item['expectedArrival'], "%Y-%m-%dT%H:%M:%SZ")
             local_dt = self.utc_to_local(read_time)
             arrival_time = local_dt.strftime(self.TIME_FORMAT)
-            away_min = math.floor(item['timeToStation'] / 60)
+            away_min = math.floor(int(item['timeToStation']) / 60)
             due_in = 'due' if away_min == 0 else f'{str(away_min)}min'
             bus_info = {"number": str(num),
                         "lineName": str(item['lineName']),
@@ -133,8 +134,8 @@ class TFLBusMonitor:
             "busses": busses,
         }
 
-    def get_stops(self):
-        """download stop information"""
+    def get_stops(self) -> List[Dict[str, Union[str, List[Dict[str, str]]]]]:
+        """Download stop information"""
         all_stops = []
         self.CONFIG.read(self.CONFIG_FILE)
         for num, stop_id in enumerate(self.CONFIG.getlist('busstop', 'stopid')):
@@ -143,19 +144,19 @@ class TFLBusMonitor:
         return all_stops
 
 
-def main():
-    """entrypoint main function"""
+def main() -> None:
+    """Main entry point"""
     import argparse
 
     bus_monitor = TFLBusMonitor()
     bus_json = bus_monitor.get_stops()
 
-    def print_json(busstop_json):
-        """pretty print json"""
+    def print_json(busstop_json: List[Dict[str, Union[str, List[Dict[str, str]]]]]) -> None:
+        """Pretty print JSON"""
         print(json.dumps(busstop_json, indent=4))
 
-    def print_text(busstop_json):
-        """print formatted text"""
+    def print_text(busstop_json: List[Dict[str, Union[str, List[Dict[str, str]]]]]) -> None:
+        """Print formatted text"""
         for stop in busstop_json:
             align = math.ceil((76 + len(stop['stopName'])) / 2)
             print(f"\033[1;33;40m{stop['stopName']:>{align}}\033[0m")
@@ -163,15 +164,14 @@ def main():
                 if 'noInfo' in bus:
                     print(f"\033[1;33;40m{bus['noInfo']}\033[0m")
                 else:
-                    """Currently, the longest destination name is 49 characters"""
                     print(
                         f"\033[0;33;40m{bus['number']:3} {bus['lineName']:5} {bus['destinationName']:50} "
                         f"{bus['arrivalTime']:9} {bus['dueIn']:>6}\033[0m"
                     )
             print("\n")
 
-    def formatter(prog):
-        """format help output instead of lambda function"""
+    def formatter(prog: str) -> argparse.HelpFormatter:
+        """Format help output instead of lambda function"""
         return argparse.HelpFormatter(prog, max_help_position=100, width=200)
 
     description = "Get bus stop data from TFL"
