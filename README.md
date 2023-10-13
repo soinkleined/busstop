@@ -62,10 +62,8 @@ Links to the hardware:
 ![hardware](readme_images/hardware.jpeg)
 
 # To Do
-1. add any missing credits
+1. update documentation to cover tfl_bus_monitor
 2. finish kiosk build automation
-3. handle errors for connectivity, api availability, etc.
-4. look for config optimisations for RPI zero, i.e. zram, gpu memory config, etc
 
 ## Acknowledgements
 Balena.io is a very interesting platform for IoT fleet management.  I saw their blog post about creating a live train time sign under your monitor and was inspired to do something similar for busses. There are a lot of links to other resources from the post as well as many other project ideas. 
