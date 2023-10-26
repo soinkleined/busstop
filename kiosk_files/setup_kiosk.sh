@@ -46,8 +46,8 @@ sed -i "s/127.0.1.1.*$CURRENT_HOSTNAME/127.0.1.1\t$NEW_HOSTNAME/g" /etc/hosts
 ##############################
 # Configure services
 ##############################
-sudo cp "${DIR}/service_configs/busstop_server" /etc/systemd/system/
-sudo cp "${DIR}/service_configs/busstop_client" /etc/systemd/system/
+sudo cp "${DIR}/service_configs/busstop_server.service" /etc/systemd/system/
+sudo cp "${DIR}/service_configs/busstop_client.service" /etc/systemd/system/
 sudo cp "${DIR}/service_configs/nginx.conf" /etc/nginx/sites-available/default
 sudo systemctl daemon-reload
 sudo systemctl enable busstop_server
