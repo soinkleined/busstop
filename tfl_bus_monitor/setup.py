@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='tfl_bus_monitor',
-    python_requires='>=3.11',
+    python_requires='>=3.9',
     version='0.4',
     author='David Klein',
     author_email='david@soinkleined.com',
