@@ -14,7 +14,8 @@ DIR=$(dirname "${0}")
 ##############################
 sudo apt update
 sudo apt full-upgrade
-sudo apt install -y git xserver-xorg x11-xserver-utils xinit openbox chromium-browser unclutter nginx realvnc-vnc-server
+sudo apt install -y git xserver-xorg x11-xserver-utils xinit openbox chromium-browser unclutter nginx realvnc-vnc-server at-spi2-core
+# at-spi2-core -> https://forums.raspberrypi.com/viewtopic.php?t=196070
 sudo systemctl enable vncserver-x11-serviced
 
 ##############################
