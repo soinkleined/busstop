@@ -2,7 +2,7 @@ blinker==1.6.2
 certifi==2023.7.22
 charset-normalizer==3.2.0
 click==8.1.7
-Flask==2.3.3
+Flask==3.0.0
 flask-sock==0.6.0
 gunicorn==21.2.0
 h11==0.14.0
@@ -16,6 +16,6 @@ requests==2.31.0
 simple-websocket==0.10.1
 Turbo-Flask==0.8.4
 urllib3==2.0.5
-Werkzeug==2.3.7
+Werkzeug==3.0.0
 wsproto==1.2.0
 ../tfl_bus_monitor
