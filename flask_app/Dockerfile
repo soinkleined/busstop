@@ -3,6 +3,7 @@ FROM python:alpine
 WORKDIR /app
 
 COPY requirements.txt requirements.txt
+ADD  tfl_bus_monitor tfl_bus_monitor
 RUN pip3 install -r requirements.txt
 
 COPY . .
