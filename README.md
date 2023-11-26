@@ -14,7 +14,7 @@ Clone the repo:
     git clone https://github.com/soinkleined/busstop.git
     cd busstop
 
-Using the TFL API, find the corresponding StopPoint(s) and add it/them to the properties/config.ini file.  You can also configure the number of bussess to display per stop.
+Using the TFL API, find the corresponding StopPoint(s) and add it/them to the ~/busstop_config.ini file.  You can also configure the number of bussess to display per stop. By default, a config file will be installed in the config directory of the tfl_bus_monitor package.
 
 Individual stopids can be found by looking for the arrivals at the stop via the TFL website.  For example:
 
