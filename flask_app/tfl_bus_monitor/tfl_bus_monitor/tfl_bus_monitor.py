@@ -105,7 +105,8 @@ class TFLBusMonitor:
 
         return stop_name
 
-    def get_bus_time(self, stop_id: str, num_busses: int) -> Dict[str, Union[str, List[Dict[str, str]]]]:
+    def get_bus_time(self, stop_id: str,
+                     num_busses: int) -> Dict[str, Union[str, List[Dict[str, str]]]]:
         """Format bus schedule data"""
         busses = []
         num = 0
@@ -170,7 +171,8 @@ def main() -> None:
                     print(f"\033[1;33;40m{bus['noInfo']}\033[0m")
                 else:
                     print(
-                        f"\033[0;33;40m{bus['number']:3} {bus['lineName']:5} {bus['destinationName']:50} "
+                        f"\033[0;33;40m{bus['number']:3} {bus['lineName']:5} "
+                        f"{bus['destinationName']:50} "
                         f"{bus['arrivalTime']:9} {bus['dueIn']:>6}\033[0m"
                     )
             print("\n")
@@ -182,8 +184,12 @@ def main() -> None:
     description = "Get bus stop data from TFL"
     parser = argparse.ArgumentParser(description=description, formatter_class=formatter)
     group = parser.add_mutually_exclusive_group()
-    group.add_argument('-t', '--print-text', action='store_true', help='print formatted text')
-    group.add_argument('-j', '--print-json', action='store_true', help='pretty print json (default)')
+    group.add_argument('-t', '--print-text',
+                       action='store_true',
+                       help='print formatted text')
+    group.add_argument('-j', '--print-json',
+                       action='store_true',
+                       help='pretty print json (default)')
     args = parser.parse_args()
 
     if args.print_text:
