@@ -42,9 +42,11 @@ Install a python virtual environment and all requisite packages:
 
 After cloning the repo and all requisite packages are installed, do the following:
 
-    flask run
+    flask --app main run
 
 Point your browser to http://127.0.0.1:5000/
+
+There are also wrapper scripts to start the application with flask or gunicorn.
 
 For running the application as a service for kiosk mode, there is a work in progress in the kiosk_files folder that will have all the requisite configuration information for gunicorn, nginx, chrome, etc.
 
