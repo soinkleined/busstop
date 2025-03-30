@@ -36,7 +36,7 @@ Here is an example configuration.  Use comma-separated stopids and values for th
 Install a python virtual environment and all requisite packages: 
 
     cd flask_app
-    virtualenv venv
+    python -m venv venv
     source venv/bin/activate
     pip3 install -r requirements.txt
 

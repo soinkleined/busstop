@@ -8,7 +8,13 @@ User=pi
 Group=pi
 Environment=DISPLAY=:0.0
 Environment=XAUTHORITY=/home/pi/.Xauthority
-ExecStart=/usr/bin/midori --display=:0 --private --execute fullscreen  http://localhost
+ExecStart=/usr/bin/chromium-browser "http://localhost" \
+    --kiosk \
+    --noerrdialogs \
+    --disable-session-crashed-bubble \
+    --disable-restore-session-state \
+    --disable-infobars \
+    --check-for-update-interval=31536000
 Restart=always
 
 [Install]
