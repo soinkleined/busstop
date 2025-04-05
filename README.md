@@ -9,6 +9,10 @@ Busstop returns current arrival information for busses at the requested stop(s).
 
 The script runs as a flask application and uses turbo flask web sockets to update it dynamically in 15 second intervals. It is intended to run via a raspberry pi whilst using chrome in kiosk mode.
 
+Originally, the idea was to use a pi zero, which worked, but as changes to Raspberry Pi OS  and chromium have made it more and more difficult to run kisok mode, the current release runs on a RPI 3, bookworm using wayland.
+
+That being said, busstop should run on most system running python and often runs on my mac.
+
 Clone the repo:
 
     git clone https://github.com/soinkleined/busstop.git
@@ -55,6 +59,8 @@ For running the application as a service for kiosk mode, there is a work in prog
 ![busstop example](readme_images/busstop_example.jpeg)
 
 # Hardware list
+Some of these links are no longer valid or relevant.
+
 Links to the hardware:
 - pi zero wh https://shop.pimoroni.com/products/raspberry-pi-zero-w?variant=39458414297171
 - screen https://shop.pimoroni.com/products/hyperpixel-4-square?variant=30138251477075
@@ -62,10 +68,6 @@ Links to the hardware:
 - on/off usb switch https://thepihut.com/products/micro-usb-cable-with-on-off-switch
 
 ![hardware](readme_images/hardware.jpeg)
-
-# To Do
-1. update documentation to cover tfl_bus_monitor
-2. finish kiosk build automation
 
 ## Acknowledgements
 Balena.io is a very interesting platform for IoT fleet management.  I saw their blog post about creating a live train time sign under your monitor and was inspired to do something similar for busses. There are a lot of links to other resources from the post as well as many other project ideas. 
@@ -95,6 +97,8 @@ https://stackoverflow.com/questions/335695/lists-in-configparser
 https://itecnote.com/tecnote/python-elegant-way-to-adjust-date-timezones-in-python/
 
 https://trstringer.com/logging-flask-gunicorn-the-manageable-way/
+
+https://github.com/celly/transparent-xcursor
 
 <div>Icons made by <a href="https://www.flaticon.com/authors/mavadee" title="mavadee">mavadee</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
