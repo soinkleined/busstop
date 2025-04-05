@@ -7,14 +7,15 @@ After=graphical.target
 User=pi
 Group=pi
 Environment=DISPLAY=:0.0
-Environment=XAUTHORITY=/home/pi/.Xauthority
-ExecStart=/usr/bin/chromium-browser "http://localhost" \
+Environment=XDG_RUNTIME_DIR="/run/user/1000"
+ExecStart=/usr/bin/chromium-browser --no-memcheck http://localhost \
     --kiosk \
     --noerrdialogs \
-    --disable-session-crashed-bubble \
-    --disable-restore-session-state \
     --disable-infobars \
-    --check-for-update-interval=31536000
+    --no-first-run \
+    --ozone-platform=wayland \
+    --enable-features=OverlayScrollbar \
+    --start-maximized
 Restart=always
 
 [Install]

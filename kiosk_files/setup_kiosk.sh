@@ -3,7 +3,6 @@
 # Vars
 ##############################
 NEW_HOSTNAME='busstop'
-CURRENT_HOSTNAME=`cat /etc/hostname | tr -d " \t\n\r"`
 TIMESTAMP=$(date +%Y%m%d%H%M%S)
 AUTOSTART="/etc/xdg/lxsession/LXDE-pi/autostart"
 SPLASH="/usr/share/plymouth/themes/pix/splash.png"
@@ -13,37 +12,56 @@ DIR=$(dirname "${0}")
 # update OS and install software
 ##############################
 sudo apt update
+sudo apt install -y nginx
 sudo apt full-upgrade
-sudo apt install -y git xserver-xorg x11-xserver-utils xinit openbox firefox-esr unclutter nginx realvnc-vnc-server at-spi2-core
-# at-spi2-core -> https://forums.raspberrypi.com/viewtopic.php?t=196070
-sudo systemctl enable vncserver-x11-serviced
 
 ##############################
 # Set browser kiosk startup
 ##############################
-mv  "${AUTOSTART}" "${AUTOSTART}.${TIMESTAMP}"
+sudo mv  "${AUTOSTART}" "${AUTOSTART}.${TIMESTAMP}"
 
 echo "# Configured by busstop on ${TIMESTAMP}
 @lxpanel --profile LXDE-pi
 @pcmanfm --desktop --profile LXDE-pi
 @xset s off
 @xset -dpms
-@xset s noblank" > "${AUTOSTART}"
+@xset s noblank" | sudo tee "${AUTOSTART}"
 
 ##############################
-# Set splash screen
+# Set splash screen and background
 ##############################
-mv "${SPLASH}" "${SPLASH}.${TIMESTAMP}"
-cp "${DIR}/images/splash.png" "${SPLASH}"
+sudo mv "${SPLASH}" "${SPLASH}.${TIMESTAMP}"
+sudo cp "${DIR}/images/splash.png" "${SPLASH}"
+echo "[*]
+desktop_bg=#FFFFFF
+desktop_shadow=#FFFFFF
+desktop_fg=#000000
+desktop_font=PibotoLt 12
+wallpaper=${SPLASH}
+wallpaper_mode=center
+show_documents=0
+show_trash=0
+show_mounts=0
+folder=/home/${USER}/Desktop" > /home/${USER}/.config/pcmanfm/LXDE-pi/desktop-items-DPI-1.conf
 
 ##############################
 # Set hostname
 ##############################
-cp /etc/hostname "/etc/hostname.${TIMESTAMP}"
-cp /etc/hosts "/etc/hosts.${TIMESTAMP}"
-echo $NEW_HOSTNAME > /etc/hostname
-sed -i "s/127.0.1.1.*$CURRENT_HOSTNAME/127.0.1.1\t$NEW_HOSTNAME/g" /etc/hosts
+if [ "${HOSTNAME}" = ${NEW_HOSTNAME} ]; then
+    printf '%s\n' "Hostname is already set to ${NEW_HOSTNAME}."
+else
+    printf '%s\n' "Setting hostname from $HOSTNAME to ${NEW_HOSTNAME}."
+    sudo cp /etc/hostname "/etc/hostname.${TIMESTAMP}"
+    sudo cp /etc/hosts "/etc/hosts.${TIMESTAMP}"
+    sudo echo ${NEW_HOSTNAME} > /etc/hostname
+    sudo sed -i "s/127.0.1.1.*${HOSTNAME}/127.0.1.1\t${NEW_HOSTNAME}/g" /etc/hosts
+fi
 
+##############################
+# setup nginx permissions and directory
+##############################
+chmod 755 /home/${USER}
+sed "${DIR}/service_configs/nginx.conf" -i -e "s/USER/${USER}/"
 ##############################
 # Configure services
 ##############################
@@ -56,13 +74,15 @@ sudo systemctl enable busstop_client
 sudo systemctl enable nginx
 
 ##############################
-# Tweaks and Optimisations
+# Configure Hyperpixel LCD
 ##############################
-#Disable hdmi to save power
-sudo sed /etc/rc.local -i -e "s/^exit 0/\/usr\/bin\/tvservice -o\nexit 0/"
-#Configure usb as network interface for ssh (gadget mode)
-grep ^dtoverlay=dwc2 /boot/config.txt || echo dtoverlay=dwc2 | sudo tee -a  /boot/config.txt
-grep modules-load=dwc2,g_ether /boot/cmdline.txt || sudo sed /boot/cmdline.txt -i -e "s/rootwait/rootwait modules-load=dwc2,g_ether/"
-#Setup autologin for the pi user
-grep ^autologin-user=pi /etc/lightdm/lightdm.conf || sudo sed /etc/lightdm/lightdm.conf -i -e "s/^#autologin-user=.*/autologin-user=pi/"
+grep 'dtoverlay=vc4-kms-dpi-hyperpixel4sq' /boot/firmware/config.txt || echo dtoverlay=vc4-kms-dpi-hyperpixel4sq | sudo tee -a /boot/firmware/config.txt
+
+##############################
+# Hack to remove cursor - https://github.com/celly/transparent-xcursor/blob/master/transparent
+##############################
+sudo mv /usr/share/icons/PiXflat/cursors/left_ptr /usr/share/icons/PiXflat/cursors/left_ptr.${TIMESTAMP}
+sudo mv /usr/share/icons/PiXflat/cursors/text /usr/share/icons/PiXflat/cursors/text.${TIMESTAMP}
+sudo cp "${DIR}/cursor/transparent" /usr/share/icons/PiXflat/cursors/left_ptr
+sudo cp "${DIR}/cursor/transparent" /usr/share/icons/PiXflat/cursors/text
 
