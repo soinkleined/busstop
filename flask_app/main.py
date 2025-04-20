@@ -8,7 +8,7 @@ import time
 from flask import Flask, redirect, request, render_template, url_for
 from turbo_flask import Turbo
 
-from tfl_bus_monitor import get_stops, get_config_path
+from tfl_bus_monitor.tfl_bus_monitor import TFLBusMonitor, get_config_path
 
 UPDATE_INTERVAL = 15
 
@@ -30,11 +30,11 @@ def update_stops():
             turbo.push(turbo.replace(render_template('busstop.html'),
                                      'all_stops'))
 
-
+monitor = TFLBusMonitor()
 @app.context_processor
 def get_all_stops():
     """start getting stops"""
-    all_stops = get_stops()
+    all_stops = monitor.get_all_arrivals()
     return {"all_stops": all_stops}
 
 

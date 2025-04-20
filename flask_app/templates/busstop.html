@@ -1,11 +1,11 @@
 <div id="all_stops">
         {%- for stop in all_stops %}
         <span id="stop_name">{{stop['stopName']}}</span></br>
-        {% for bus in stop['busses'] -%}
+        {% for line in stop['arrivals'] -%}
         {% if 'noInfo' in bus %}
-        <span id="no_info">{{bus.noInfo}}</span></br>
+        <span id="no_info">{{arrival.noInfo}}</span></br>
         {% else %}
-        <span class="number">{{bus.number}}</span><span class="lineName">{{bus.lineName}}</span><span class="destinationName">{{bus.destinationName}}</span><span class="arrival_time">{{bus.arrivalTime}}</span><span class="due_in">{{bus.dueIn}}</span></br>
+        <span class="number">{{line.number}}</span><span class="lineName">{{line.lineName}}</span><span class="destinationName">{{line.destinationName}}</span><span class="arrival_time">{{line.arrivalTime}}</span><span class="due_in">{{line.dueIn}}</span></br>
         {% endif %}
         {% endfor -%}
         </br>
