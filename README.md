@@ -3,6 +3,7 @@
 </p>
 <h1 align="center" style="margin-top: 0px;">busstop</h1>
 <p align="center" >Realtime London bus stop information from TFL, on a raspberry pi, on your desktop.</p>
+<p align="center" >Now also supporting tube stops!</p>
 
 # Info
 Busstop returns current arrival information for busses at the requested stop(s).  It prints the output in a style similar to that of the live bus update signs available at many bus stops throughout London.
