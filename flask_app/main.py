@@ -1,19 +1,20 @@
 """
+Realtime London bus stop info via TFL.
 https://github.com/soinkleined/busstop
 """
+
 import logging
 import threading
 import time
-
 from flask import Flask, redirect, request, render_template, url_for
 from turbo_flask import Turbo
-
 from tfl_bus_monitor.tfl_bus_monitor import TFLBusMonitor, get_config_path
 
 UPDATE_INTERVAL = 15
 
 app = Flask(__name__)
 turbo = Turbo(app)
+monitor = TFLBusMonitor()
 
 if __name__ != '__main__':
     gunicorn_logger = logging.getLogger('gunicorn.error')
@@ -23,75 +24,70 @@ if __name__ != '__main__':
 
 
 def update_stops():
-    """update stops"""
+    """Push updates to client every UPDATE_INTERVAL seconds."""
     with app.app_context():
         while True:
             time.sleep(UPDATE_INTERVAL)
-            turbo.push(turbo.replace(render_template('busstop.html'),
-                                     'all_stops'))
+            turbo.push(
+                turbo.replace(
+                    render_template("busstop.html"),
+                    target="all_stops"
+                )
+            )
 
-monitor = TFLBusMonitor()
+
 @app.context_processor
 def get_all_stops():
-    """start getting stops"""
-    all_stops = monitor.get_all_arrivals()
-    return {"all_stops": all_stops}
+    """Inject stop data into templates."""
+    return {"all_stops": monitor.get_all_arrivals()}
 
 
 @app.route("/")
 def index():
-    """render index template"""
     return render_template("index.html")
 
 
-@app.route("/admin", methods=['GET'])
+@app.route("/admin", methods=["GET", "POST"])
 def admin():
-    """render admin template"""
-    with open(get_config_path(), 'r') as file:
-        config_data = file.read()
-    return render_template('admin.html', config_data=config_data)
-
-
-@app.route("/admin", methods=['POST'])
-def admin_post():
-    """render admin post template"""
-    if request.method == 'POST':
-        config_data = request.form['config_data']
-        with open(get_config_path(), 'w') as f:
-            f.write(str(config_data))
-    # return render_template('admin.html', nopol=config_data)
-    return redirect(url_for("index"))
+    """View and update stop configuration."""
+    if request.method == "POST":
+        config_data = request.form["config_data"]
+        with open(get_config_path(), "w") as f:
+            f.write(config_data)
+        return redirect(url_for("index"))
+    else:
+        with open(get_config_path(), "r") as f:
+            config_data = f.read()
+        return render_template("admin.html", config_data=config_data)
 
 
 @app.route("/about")
 def about():
-    """render about template"""
     return render_template("about.html")
 
 
 @app.route("/stopinfo")
 def stopinfo():
-    """render stopinfo template"""
     return render_template("stopinfo.html")
-
-
-@app.errorhandler(500)
-def internal_error(error):
-    """render 500 page"""
-    return render_template('errors/500.html'), 500
 
 
 @app.errorhandler(404)
 def not_found_error(error):
-    """render 404 page"""
-    return render_template('errors/404.html'), 404
+    return render_template("errors/404.html"), 404
 
 
+@app.errorhandler(500)
+def internal_error(error):
+    return render_template("errors/500.html"), 500
+
+
+# Start the live update thread
 thread = threading.Thread(target=update_stops)
 thread.daemon = True
 thread.start()
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
 else:
-    app.logger.info('busstop started')
+    app.logger.info("busstop started")
+
