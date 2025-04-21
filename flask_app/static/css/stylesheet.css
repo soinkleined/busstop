@@ -58,10 +58,9 @@ a {
     margin-bottom: 20px;
 }
 #date_and_time, #no_info {
-    display: inline-block;
+    display: block;
     text-align: center;
     width: 680px;
-    height: 16px;
     margin-top: 20px;
 }
 .error, .back {
