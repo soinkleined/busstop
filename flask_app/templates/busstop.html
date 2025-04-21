@@ -1,13 +1,19 @@
 <div id="all_stops">
-        {%- for stop in all_stops %}
-        <span id="stop_name">{{stop['stopName']}}</span></br>
-        {% for line in stop['arrivals'] -%}
-        {% if 'noInfo' in bus %}
-        <span id="no_info">{{arrival.noInfo}}</span></br>
-        {% else %}
-        <span class="number">{{line.number}}</span><span class="lineName">{{line.lineName}}</span><span class="destinationName">{{line.destinationName}}</span><span class="arrival_time">{{line.arrivalTime}}</span><span class="due_in">{{line.dueIn}}</span></br>
-        {% endif %}
-        {% endfor -%}
-        </br>
-        {% endfor -%}
+  {% for stop in all_stops %}
+    <span id="stop_name">{{ stop['stopName'] }}</span><br>
+    {% for line in stop['arrivals'] %}
+      {% if 'noInfo' in line %}
+        <span id="no_info">{{ line.noInfo }}</span><br>
+      {% else %}
+        <div class="line-row">
+          <span class="number">{{ line.number }}</span>
+          <span class="lineName {{ 'right-align' if line.lineName|length <= 4 else 'left-align' }}">{{ line.lineName }}</span>
+          <span class="destinationName">{{ line.destinationName }}</span>
+          <span class="arrival_time">{{ line.arrivalTime }}</span>
+          <span class="due_in">{{ line.dueIn }}</span>
+        </div>
+      {% endif %}
+    {% endfor %}
+    <br>
+  {% endfor %}
 </div>

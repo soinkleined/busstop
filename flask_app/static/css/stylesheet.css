@@ -27,7 +27,6 @@ body {
     color: yellow;
     background-color: black;
     letter-spacing: 1px;
-
 }
 span{
     margin-bottom: 10px;
@@ -51,7 +50,6 @@ a {
     margin: 0px auto;
 }
 
-
 #stop_name{
     display: inline-block;
     text-align: center;
@@ -71,29 +69,50 @@ a {
     text-align: center;
     width: 680px;
 }
-.number {
-    display: inline-block;
-    text-align: right;
-    width: 40px;
+.line-row {
+  display: flex;
+  width: 680px;
+  gap: 4px;
+  align-items: baseline;
+  white-space: nowrap;
 }
 
-.lineName {
-    display: inline-block;
-    text-align: right;
-    width: 70px;
+/* Fixed-width fields */
+.number {
+  display: inline-block;
+  width: 40px;
+  text-align: right;
 }
-.destinationName {
-    display: inline-block;
-    text-align: right;
-    width: 380px;
-}
+
 .arrival_time {
-    display: inline-block;
-    text-align: right;
-    width: 110px;
+  width: 110px;
+  text-align: right;
 }
+
 .due_in {
-    display: inline-block;
-    text-align: right;
-    width: 80px;
+  width: 80px;
+  text-align: right;
 }
+
+/* Dynamically sized fields */
+.lineName {
+  flex: 0 1 auto;
+  min-width: 60px;
+}
+
+.right-align {
+  text-align: right;
+}
+
+.left-align {
+  text-align: left;
+  padding-left: 10px;
+}
+
+.destinationName {
+  flex: 1 1 auto;
+  min-width: 100px;
+  max-width: 380px;
+  text-align: right;
+}
+
