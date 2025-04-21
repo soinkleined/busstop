@@ -6,7 +6,7 @@
 <p align="center" >Now also supporting tube stops!</p>
 
 # Info
-Busstop returns current arrival information for busses at the requested stop(s).  It prints the output in a style similar to that of the live bus update signs available at many bus stops throughout London.
+Busstop returns current arrival information for busses and tube trains at the requested stop(s).  It prints the output in a style similar to that of the live bus and tube update signs available at many bus stops and stations throughout London.
 
 The script runs as a flask application and uses turbo flask web sockets to update it dynamically in 15 second intervals. It is intended to run via a raspberry pi whilst using chrome in kiosk mode.
 
@@ -36,7 +36,7 @@ Here is an example configuration.  Use comma-separated stopids and values for th
     [busstop]
     #Clissold Crescent, Newington Green
     stopid = 490005432S2,490015396S
-    num_busses=10,10
+    num_services=10,10
 
 Install a python virtual environment and all requisite packages: 
 
@@ -53,7 +53,7 @@ Point your browser to http://127.0.0.1:5000/
 
 There are also wrapper scripts to start the application with flask or gunicorn.
 
-For running the application as a service for kiosk mode, there is a work in progress in the kiosk_files folder that will have all the requisite configuration information for gunicorn, nginx, chrome, etc.
+For running the application as a service for kiosk mode, there are systemd unit files in the kiosk_files folder that will have all the requisite configuration information for gunicorn, nginx, chrome, etc.
 
 ![busstop web](readme_images/busstop_web.png)
 
