@@ -16,6 +16,11 @@ app = Flask(__name__)
 turbo = Turbo(app)
 monitor = TFLBusMonitor()
 
+# Global cache for stop data
+latest_data = {
+    "all_stops": [],
+}
+
 if __name__ != '__main__':
     gunicorn_logger = logging.getLogger('gunicorn.error')
     app.logger.handlers = gunicorn_logger.handlers
@@ -24,22 +29,31 @@ if __name__ != '__main__':
 
 
 def update_stops():
-    """Push updates to client every UPDATE_INTERVAL seconds."""
+    """Background thread to refresh TFL data and push updates to client."""
+    global latest_data
     with app.app_context():
         while True:
             time.sleep(UPDATE_INTERVAL)
-            turbo.push(
-                turbo.replace(
-                    render_template("busstop.html"),
-                    target="all_stops"
+            try:
+                all_stops = monitor.get_all_arrivals()
+                latest_data["all_stops"] = all_stops
+                turbo.push(
+                    turbo.replace(
+                        render_template("busstop.html"),
+                        target="all_stops"
+                    )
                 )
-            )
+            except Exception as e:
+                app.logger.error(f"Error during update_stops: {e}")
+                # We do NOT crash; we keep showing old data until the next successful update
 
 
 @app.context_processor
-def get_all_stops():
-    """Inject stop data into templates."""
-    return {"all_stops": monitor.get_all_arrivals()}
+def inject_all_stops():
+    """Make stop data available in all templates."""
+    return {
+        "all_stops": latest_data.get("all_stops", []),
+    }
 
 
 @app.route("/")
@@ -81,7 +95,7 @@ def internal_error(error):
     return render_template("errors/500.html"), 500
 
 
-# Start the live update thread
+# Start the background thread for live updates
 thread = threading.Thread(target=update_stops)
 thread.daemon = True
 thread.start()
